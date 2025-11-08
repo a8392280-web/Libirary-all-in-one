@@ -1,28 +1,33 @@
 from PySide6.QtCore import Qt,QSettings
 from PySide6.QtWidgets import QListWidgetItem, QWidget, QHBoxLayout, QVBoxLayout, QLabel,QListWidget
 from PySide6.QtGui import QPixmap
-from app.db.db import load_movies
 from app.utils.my_functions import link_to_image
 import re
-class MovieListItemWidget(QWidget):
-    def __init__(self, db_id, title, year, rating, poster_path, user_rating, runtime,index=1, parent=None):
-        super().__init__(parent)
-        self.settings = QSettings("MyCompany", "MyApp")
+from app.models.movie import Movie
 
-        self.db_id = db_id  # ID from your DB
-        self.title = title
-        self.year = year
-        self.rating = rating
-        self.user_rating = user_rating
-        self.poster_path = poster_path
-        self.runtime = runtime  # New runtime parameter
+
+
+class MovieListItemWidget(QWidget):
+
+    def __init__(self,movie : Movie,index: int=1, parent=None):
+        super().__init__(parent)
+
+        self.movie = movie
         self.index = index
         self.setup_ui()
         
+
+    # ----------------------------------------------------------------
+    # UI Setup
+    # ----------------------------------------------------------------
+
     def setup_ui(self):
+
+        m = self.movie
         layout = QHBoxLayout(self)
         layout.setContentsMargins(15, 10, 15, 10)
-        # index Label - Changed color from yellow to a lighter gray
+
+        # ---------------------- Index label -----------------------
         index_label = QLabel(f"{self.index }-")
         index_label.setFixedWidth(50)
         index_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
@@ -39,7 +44,7 @@ class MovieListItemWidget(QWidget):
         self.poster_label.setFixedSize(60, 90)
         self.poster_label.setAlignment(Qt.AlignCenter)
         self.poster_label.setStyleSheet("background-color: #222; border: 1px solid #555; color: gray;")
-        link_to_image(self.poster_path,self.poster_label,60,90)
+        link_to_image(m.poster_path,self.poster_label,60,90)
 
         # -------------------------------- Movie info -----------------------------------
         info_widget = QWidget()
@@ -48,7 +53,7 @@ class MovieListItemWidget(QWidget):
         info_layout.setSpacing(2)  # Reduced spacing between info elements
         
         # ------------------------------ movie title --------------------------------------
-        title_label = QLabel(self.title)
+        title_label = QLabel(m.title)
         title_label.setStyleSheet("font-weight: bold; font-size: 16px;")
         
         # ---------------------------- year,runtime widget -----------------------------------
@@ -59,42 +64,13 @@ class MovieListItemWidget(QWidget):
 
 
         # ---------------------------------- Year ----------------------------------------------
-        year_label = QLabel(f"({self.year})")
+        year_label = QLabel(f"({m.year})")
         year_label.setStyleSheet("color: #666; font-size: 14px;")
         
 
-
-        
-        
         #----------------------------------- Runtime -------------------------------------------
         
-
-        # Normalize input (lowercase, remove extra spaces)
-        time_str = self.runtime.lower().strip()
-
-        # Extract hours and minutes using regex
-        hours_match = re.search(r'(\d+)\s*(h|hour|hours)', time_str)
-        minutes_match = re.search(r'(\d+)\s*(m|min|mins|minute|minutes)', time_str)
-
-        total_minutes = 0
-
-        # If there are hours, convert to minutes
-        if hours_match:
-            total_minutes += int(hours_match.group(1)) * 60
-
-        # If there are minutes, add them
-        if minutes_match:
-            total_minutes += int(minutes_match.group(1))
-        
-        # If only a number (like "150") is given
-        if not hours_match and not minutes_match and time_str.isdigit():
-            total_minutes = int(time_str)
-
-        # Convert total minutes to hours + minutes
-        hours = total_minutes // 60
-        remaining_minutes = total_minutes % 60
-
-        runtime_label = QLabel(f"⏱️ {hours}h {remaining_minutes}min")
+        runtime_label = QLabel(self.format_runtime(m.runtime))
         runtime_label.setStyleSheet("color: #666; font-size: 14px;")
         
 
@@ -111,10 +87,10 @@ class MovieListItemWidget(QWidget):
         #------------------------ Rating-------------------------------
 
         # IMDb-like rating (yellow stars)
-        rating_widget = self.create_rating_widget(self.rating, color="#aca13e",label_text="IMDB:-")
+        rating_widget = self.create_rating_widget(m.rating, color="#aca13e",label_text="IMDB:-")
 
         # User rating (blue stars)
-        user_rating_widget = self.create_rating_widget(self.user_rating, color="#2a418b",label_text="My Rating:-")
+        user_rating_widget = self.create_rating_widget(m.user_rating, color="#2a418b",label_text="My Rating:-")
 
         # Combine both vertically
         all_rating_widget = QWidget()
@@ -147,8 +123,35 @@ class MovieListItemWidget(QWidget):
         """)
 
 
-    #----------------------------------- Functions --------------------------------------- 
+    # ----------------------------------------------------------------
+    # Helper functions
+    # ----------------------------------------------------------------
     
+    def format_runtime(self, runtime_value) -> str:
+        """Converts runtime like '2h 10m', '130', or '1 hour 30 min' into '⏱️ Xh Ymin'."""
+        if not runtime_value:
+            return "⏱️ N/A"
+
+        time_str = str(runtime_value).lower().strip()
+
+        hours_match = re.search(r'(\d+)\s*(h|hour|hours)', time_str)
+        minutes_match = re.search(r'(\d+)\s*(m|min|mins|minute|minutes)', time_str)
+
+        total_minutes = 0
+
+        if hours_match:
+            total_minutes += int(hours_match.group(1)) * 60
+        if minutes_match:
+            total_minutes += int(minutes_match.group(1))
+        if not hours_match and not minutes_match and time_str.isdigit():
+            total_minutes = int(time_str)
+
+        hours = total_minutes // 60
+        remaining_minutes = total_minutes % 60
+
+        return f"⏱️ {hours}h {remaining_minutes}min"
+
+
     def create_rating_widget(self, value, color="#B1BB1F", icon_path=None, label_text=None):
         """Create a star rating widget with optional icon and text label."""
         widget = QWidget()
@@ -190,84 +193,6 @@ class MovieListItemWidget(QWidget):
 
         return widget
     
-     
-    def load_from_db(self, section, section_list_widget):
-        "Load movies for the given section and display them in the list"
-        self.section = section
-        self.section_list_widget = section_list_widget
-        self.refresh_list()
-
-    def refresh_list(self, sort_by= None, reverse=None):
-        "Refresh and display the movie list with sorting and styling"
-        if not hasattr(self, "section") or not hasattr(self, "section_list_widget"):
-            return  # nothing to refresh ye
-        """data = list of dicts from your DB"""
-        data = load_movies() # Load full JSON structure
-        movie_list = data[self.section] 
-
-        # ✅ Sort movies before displaying
-        sort_by = self.settings.value(f"{self.section}_sort_by", "Name")
-        reverse = self.settings.value(f"{self.section}_sort_by_reverse", "false").lower() == "true"
-
-
-        if sort_by:
-            movie_list = sorted(
-                movie_list,
-                key=lambda x: str(x.get(sort_by, "")).strip().lower(),
-                reverse=reverse
-            )
-
-        # Disable selection highlight for the list widget
-        self.section_list_widget.setSelectionMode(QListWidget.SelectionMode.NoSelection)
-        self.section_list_widget.setFocusPolicy(Qt.FocusPolicy.NoFocus)
-        
-        # Custom style to remove selection highlighting
-        self.section_list_widget.setStyleSheet("""
-            QListWidget {
-                outline: 0;
-                border: none;
-                background-color: transparent;
-            }
-            QListWidget::item {
-                border: none;
-                background-color: transparent;
-            }
-            QListWidget::item:selected {
-                background-color: transparent;
-            }
-        """)
-        
-        self.section_list_widget.clear()
-
-        for index, movie in enumerate(movie_list, start=1):
-            item_widget = MovieListItemWidget(
-            db_id=movie.get("id", 0),
-            title=movie.get("Name", "Unknown"),
-            year=movie.get("Released", "N/A"),
-            rating=movie.get("Rating", "N/A"),
-            poster_path=movie.get("Image", ""),
-            user_rating=movie.get("User_rating", "N/A"),
-            runtime=movie.get("Runtime", "N/A"),
-                index=index   # 👈 pass index here
-            )
-            
-            item = QListWidgetItem(self.section_list_widget)
-            item.setSizeHint(item_widget.sizeHint())
-            
-            # ✅ Store the movie ID in the QListWidgetItem
-            item.setData(Qt.UserRole, movie["id"])
-
-
-            # ✅ Store the ENTIRE movie dict for reuse or filtering
-            item.setData(Qt.UserRole + 1, movie)
-
-            # Disable selection for individual items
-            item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsSelectable)
-
-            
-
-            self.section_list_widget.addItem(item)
-            self.section_list_widget.setItemWidget(item, item_widget)
-
+    
 
            

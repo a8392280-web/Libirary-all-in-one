@@ -1,16 +1,17 @@
 # add_movie_window.py
 from PySide6.QtWidgets import QDialog, QMessageBox,QComboBox
 from py_ui.movies_add import Ui_add_widget
-from app.db.db import load_movies , add_movie
+from app.db.sqlite_manger import insert_movie , list_movies
 from app.utils.my_functions import link_to_image , get_selected_section, resize_combo_box_to_contents
 from app.utils.info_from_APIs import get_movie_info
-
+from app.models.movie import Movie
+from PySide6.QtCore import Signal  # Add this import
 class AddMovieWindow(QDialog): # Inherit from QDialog for modal behavior
+    movie_added = Signal()  # Signal emitted when a movie is successfully added
     def __init__(self, parent=None): # Optional parent parameter
         super().__init__(parent) # Call the parent constructor
         self.ui = Ui_add_widget() # Create an instance of the UI class
         self.ui.setupUi(self) # Set up the UI
-        self.data = load_movies()
         self.setWindowTitle("Add New Movie")
 
         # Disable default/autoDefault behavior for buttons
@@ -22,6 +23,8 @@ class AddMovieWindow(QDialog): # Inherit from QDialog for modal behavior
 
         self.ui.image_url.returnPressed.connect(self.image)  # Trigger image loading when Enter is pressed in the URL field
 
+        # Load current movies grouped by section
+        self.data = {sec: list_movies(sec) for sec in ["watching", "want_to_watch", "continue_later", "dont_want_to_continue", "watched"]}
 
         #-------------------- Setup combobox ------------------------
 
@@ -59,10 +62,11 @@ class AddMovieWindow(QDialog): # Inherit from QDialog for modal behavior
 
     def comboBox(self):
         "Populate section selectors with available categories"
-        sections = self.data
+
         self.ui.manual_section_selector.clear()
         self.ui.api_section_selector.clear()
-        list_of_sections = list(sections.keys())
+
+        list_of_sections=["Watching","Want_to_watch","Continue_later","Dont_want_to_continue","Watched"]
         for section in list_of_sections:
             self.ui.manual_section_selector.addItem(section.replace("_"," ").capitalize())
             self.ui.api_section_selector.addItem(section.replace("_"," ").capitalize())
@@ -147,13 +151,41 @@ class AddMovieWindow(QDialog): # Inherit from QDialog for modal behavior
         genres = [g.strip() for g in genre_input.text().split("-") if g.strip()]
         section = get_selected_section(section_selector)
 
+
+        try:
+            # Validate and convert fields
+            if imdb_rate:
+                imdb_rate = float(imdb_rate)  # This will raise ValueError if not convertible
+            
+            if user_rate:
+                user_rate = float(user_rate)  # This will raise ValueError if not convertible
+                
+            if runtime:
+                runtime = int(runtime)  # This will raise ValueError if not convertible
+                
+            # Validate year (released) - should be 4 digits
+            if released and (len(released) != 4 or not released.isdigit()):
+                raise ValueError("Year must be 4 digits")
+                
+        except ValueError as e:
+            reply = QMessageBox.critical(
+                self, "Field Error",
+                f"Invalid value in one or more fields:\n\n{str(e)}",
+                QMessageBox.Ok
+            )
+            return  # Stop the process if validation fails
+
+
+
+                
+
         # Duplicate check
         for key, movies in self.data.items():
             for movie in movies:
-                if movie["Name"].strip().lower() == name.lower():
+                if movie.title.strip().lower() == name.lower():
                     reply = QMessageBox.question(
                         self, "Confirm Adding",
-                        f"There is a movie with this name ({movie['Name']}) in the ({key.replace('_', ' ')}) section.\n"
+                        f"There is a movie with this name ({movie.title}) in the ({key.replace('_', ' ')}) section.\n"
                         "Are you sure you want to add this movie again?",
                         QMessageBox.Yes | QMessageBox.No
                     )
@@ -162,9 +194,27 @@ class AddMovieWindow(QDialog): # Inherit from QDialog for modal behavior
                         return
                     break
 
+
+
         # Add movie
         imdb_id = getattr(self, "movie_imdb_id", None)
-        add_movie(section, name, runtime, released, genres, image_url, imdb_rate, plot, user_rate, imdb_id)
+        new_movie = Movie(
+            title=name,
+            runtime=runtime,
+            year=released,
+            rating=float(imdb_rate) if imdb_rate else None,
+            user_rating=float(user_rate) if user_rate else None,
+            poster_path=image_url,
+            plot=plot,
+            genres=genres,
+            imdb_id=getattr(self, "movie_imdb_id", None),
+            section=section
+        )
+        insert_movie(new_movie)
+
+        # Emit the signal before closing
+        self.movie_added.emit()
+
         self.close()
 
 

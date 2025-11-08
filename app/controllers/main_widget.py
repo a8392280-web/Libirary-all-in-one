@@ -1,11 +1,12 @@
 from PySide6.QtCore import Qt, QSettings
-from PySide6.QtWidgets import QWidget ,QMainWindow ,QListWidgetItem ,QMessageBox
+from PySide6.QtWidgets import QWidget,QMessageBox
 import random
 from py_ui.main_ui import Ui_main_widget
 from app.dialogs.movies_add_widget import AddMovieWindow
-from app.controllers.movie_list_widget import MovieListItemWidget
-from app.dialogs.movies_show_widget import ShowMovieWindow
-from app.db import db
+from app.controllers.list_widget import MovieListLoader
+
+# from app.dialogs.movies_show_widget import ShowMovieWindow
+
 
 
 class Widget(QWidget):
@@ -17,14 +18,7 @@ class Widget(QWidget):
 
         self.setWindowTitle("My Library") # set the window title
         self.settings = QSettings("MyCompany", "MyApp") # learn about it then see
-
-        # ✅ Create a helper object to handle movie list logic
-        self.movie_helper = MovieListItemWidget(0, "", "", "", "", "", "")
-
-        #✅ Connect the database save signal to refresh all sections
-        db.on_movies_saved = self.refresh_all_sections 
-
-
+        
         # section with its content
         self.sections = {
             "watching": {
@@ -96,14 +90,15 @@ class Widget(QWidget):
         # Load movies data at startup
         for section_name, section_data in self.sections.items():
             list_widget = section_data["list"]
-            self.movie_helper.load_from_db(section_name, list_widget)
+            loader = MovieListLoader(list_widget)
+            loader.load_from_section(section_name)
 
         # Show item info on click 
-        for section_name, section_data in self.sections.items():
-            list_widget = section_data["list"]
-            list_widget.itemClicked.connect(
-            lambda item, section=section_name: self.on_item_clicked(item, section) # When Qt emits itemClicked, it passes the clicked item — that becomes item.
-            )
+        # for section_name, section_data in self.sections.items():
+        #     list_widget = section_data["list"]
+        #     list_widget.itemClicked.connect(
+        #     lambda item, section=section_name: self.on_item_clicked(item, section) # When Qt emits itemClicked, it passes the clicked item — that becomes item.
+        #     )
 
         #-------------------------- Setup Random buttons -------------------------------
         for section_name, section_data in self.sections.items():
@@ -175,36 +170,53 @@ class Widget(QWidget):
     def open_add_movie_window(self):
         # Open the Add Movie window as a modal dialog
         self.add_window = AddMovieWindow()  # Create a separate standalone window
+        # Connect to the movie_added signal
+        self.add_window.movie_added.connect(self.refresh_all_sections)
+
         self.add_window.exec()              # Use exec() for QDialog to make it modal( blocks interaction with other windows).
         # self.add_window.show()
 
 
-    def on_item_clicked(self, item,section):
-            # Open the movie info window for the selected item
-            self.selected_id = item.data(Qt.UserRole)
-            self.show_movie_window = ShowMovieWindow(section= section, id=self.selected_id)
-            self.show_movie_window.show_info() 
-            self.show_movie_window.exec()
+    # def on_item_clicked(self, item,section):
+    #         # Open the movie info window for the selected item
+    #         self.selected_id = item.data(Qt.UserRole)
+    #         self.show_movie_window = ShowMovieWindow(section= section, id=self.selected_id)
+    #         self.show_movie_window.show_info() 
+    #         self.show_movie_window.exec()
             
-    def filter_list(self, text , list_widget):
+    def filter_list(self, text, list_widget):
         # Filter movies in the list based on the entered text
         text = text.strip().lower()
+        
+        # If search is empty, show all items
+        if text == "":
+            for i in range(list_widget.count()):
+                item = list_widget.item(i)
+                item.setHidden(False)
+            return
+        
+        # If there's search text, filter items by TITLE and YEAR only
         for i in range(list_widget.count()):
             item = list_widget.item(i)
-            movie = item.data(Qt.UserRole + 1)  # full dict
-
-            # Merge all movie info into one searchable string
-            search_text = " ".join([
-                str(movie.get("Name", "")),
-                str(movie.get("Released", ""))
-                ]).lower()
-
-            item.setHidden(text not in search_text)
-
+            movie = item.data(Qt.UserRole)
+            
+            if movie and hasattr(movie, 'title'):
+                # Search in title and year only
+                name = str(movie.title or "").lower()
+                year = str(movie.year or "").lower()
+                
+                # Combine only title and year for searching
+                search_text = f"{name} {year}"
+                
+                # Show item if search text is found in title OR year
+                item.setHidden(text not in search_text)
+            else:
+                # If no movie data, hide the item
+                item.setHidden(True)
 
 
     def pick_random_movie(self, list_widget):
-        "Picks a random movie frome the given list"
+        "Picks a random movie from the given list"
         count = list_widget.count()
         if count == 0:
             QMessageBox.information(self, "No Movies", "This list is empty!")
@@ -218,40 +230,47 @@ class Widget(QWidget):
         list_widget.scrollToItem(item)
         item.setSelected(True)
 
-        # If you have item widgets, you can also retrieve their data:
-        movie_data = item.data(Qt.UserRole + 1)
-        if movie_data:
-            print(f"🎬 Random movie: {movie_data.get('Name', 'Unknown')}")
+        # Get the movie data using Qt.UserRole (not Qt.UserRole + 1)
+        movie = item.data(Qt.UserRole)
+        if movie and hasattr(movie, 'title'):
+            movie_name = movie.title
+            print(f"🎬 Random movie: {movie_name}")
 
-        # Optional: show a popup
-        QMessageBox.information(
-            self,
-            "Random Pick",
-            f"🎬 Your random movie is:\n\n{movie_data.get('Name', 'Unknown')}"
-        )
+            # Optional: show a popup
+            QMessageBox.information(
+                self,
+                "Random Pick",
+                f"🎬 Your random movie is:\n\n{movie_name}"
+            )
+        else:
+            # Fallback if movie data is not found
+            QMessageBox.information(
+                self,
+                "Random Pick",
+                "🎬 Your random movie is:\n\nUnknown"
+            )
 
 
 
     def on_sort_changed(self, section, sort_by):
         "Sort movies in the selected section based on the chosen criteria"        
         if sort_by == "Name (A-Z)":
-            sort_key, reverse = "Name", False
+            sort_key, reverse = "title", False
         elif sort_by == "Name (Z-A)":
-            sort_key, reverse = "Name", True
+            sort_key, reverse = "title", True
         elif sort_by == "Year (Newest-Oldest)":
-            sort_key, reverse = "Released", True
+            sort_key, reverse = "year", True
         elif sort_by == "Year (Oldest-Newest)":
-            sort_key, reverse = "Released", False
+            sort_key, reverse = "year", False
         elif sort_by == "IMDB Rating (High-Low)":
-            sort_key, reverse = "Rating", True
+            sort_key, reverse = "rating", True
         elif sort_by == "IMDB Rating (Low-High)":
-            sort_key, reverse = "Rating", False
+            sort_key, reverse = "rating", False
         elif sort_by == "User Rating (High-Low)":
-            sort_key, reverse = "User_rating", True
+            sort_key, reverse = "user_rating", True
         elif sort_by == "User Rating (Low-High)":
-            sort_key, reverse = "User_rating", False
+            sort_key, reverse = "user_rating", False
         else:
-    
             return  # unknown option
 
         # Save user preference
@@ -259,21 +278,28 @@ class Widget(QWidget):
         self.settings.setValue(f"{section}_sort_by", sort_key)
         self.settings.setValue(f"{section}_sort_by_reverse", reverse)
 
-        # Reload the list
-        self.refresh_one_section(section , self.sections[section]["list"])
-
-
+        # Reload the list with sorting
+        self.refresh_one_section(section, self.sections[section]["list"])
 
 
     def refresh_all_sections(self):
         "refres all list widgets"
-        for section_name, section_data in self.sections.items():
-            self.movie_helper.load_from_db(section_name, section_data["list"])
+        for section_name, section_data in  self.sections.items():
+            loader= MovieListLoader(section_data["list"])
+            loader.load_from_section(section_name)
 
-
-    def refresh_one_section(self, section , list):
-        "refres one list widgets"
-        self.movie_helper.load_from_db(section,list)
+    def refresh_one_section(self, section, list_widget):
+        "Refresh one list widget with sorting"
+        # Get saved sort preferences
+        sort_key = self.settings.value(f"{section}_sort_by", "title")  # default to title
+        reverse = self.settings.value(f"{section}_sort_by_reverse", False, type=bool)
+        
+        # Convert reverse to descending for the database query
+        descending = bool(reverse)
+        
+        # Load with sorting
+        loader = MovieListLoader(list_widget)
+        loader.load_from_section(section, order_by=sort_key, descending=descending)
         
 
 

@@ -2,6 +2,8 @@ import sqlite3
 from pathlib import Path
 from app.models.movie import Movie
 import json
+from typing import Callable
+
 
 # ==========================================================
 # 📘 DATABASE SETUP
@@ -17,7 +19,7 @@ CREATE TABLE IF NOT EXISTS movies (
     poster_path TEXT,
     genres TEXT,
     plot TEXT,
-    imdb_id TEXT UNIQUE,
+    imdb_id TEXT ,
     last_update TEXT,
     created_at TEXT DEFAULT (datetime('now')),
     section TEXT DEFAULT 'want to watch'
@@ -98,6 +100,7 @@ def insert_movie(movie: Movie):
             movie_to_tuple(movie)
         )
         movie.id = cursor.lastrowid
+
     return movie
 
 
@@ -163,22 +166,6 @@ def list_movies(section: str, order_by: str = "title", descending: bool = False)
     return [row_to_movie(row) for row in rows]
 
 
-def search_movies(keyword: str, section: str | None = None):
-    """Search movies by title or IMDb ID, optionally filtered by section."""
-    with get_conn() as conn:
-        cursor = conn.cursor()
-
-        query = "SELECT * FROM movies WHERE (title LIKE ? OR imdb_id LIKE ?)"
-        params = [f"%{keyword}%", f"%{keyword}%"]
-
-        if section:
-            query += " AND section = ?"
-            params.append(section)
-
-        cursor.execute(query, params)
-        rows = cursor.fetchall()
-
-    return [row_to_movie(row) for row in rows]
 
 
 def move_movie_section(movie_id: int, new_section: str) -> bool:

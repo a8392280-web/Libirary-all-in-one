@@ -11,7 +11,7 @@ network_manager = QNetworkAccessManager()
 memory_cache = {}  # {url_hash: QPixmap}
 
 # Folder for disk caching
-CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", "cache", "posters")
+CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "posters")
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 
