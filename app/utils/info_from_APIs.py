@@ -1,12 +1,15 @@
 import requests 
 import os
 from datetime import datetime, timedelta
+from config import OMDB_API_KEY, RAWG_API_KEY
+
+
 def get_movie_info(title_name):
     "fetch data by name from omdb"
     url = "http://www.omdbapi.com/"
     params = {
         "t": title_name,
-        "apikey": "b9a72f7c"
+        "apikey": OMDB_API_KEY
     }
 
     try:
@@ -40,7 +43,7 @@ def get_movie_info(title_name):
 
 def update_imdb_info_if_old(movie):
     """Update IMDb rating if data is older than 7 days."""
-    API_KEY = "b9a72f7c"
+    API_KEY = "OMDB_API_KEY"
     updated = movie.copy()  # ✅ Make a separate copy
     try:
         last_updated = datetime.fromisoformat(movie.get("last_updated", "1970-01-01"))
@@ -71,7 +74,7 @@ def update_imdb_info_if_old(movie):
 
 
 def get_game_info(game_name):
-    api_key = "d2da246042934798b5890cab9226ebed"
+    api_key = RAWG_API_KEY
     url = "https://api.rawg.io/api/games"
     params = {
         "key": api_key,
