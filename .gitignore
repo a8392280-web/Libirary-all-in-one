@@ -9,3 +9,4 @@
 # Ignore files in posters folder
 assets/posters/*
 config.py
+data/*
