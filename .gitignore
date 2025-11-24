@@ -10,3 +10,5 @@
 assets/posters/*
 config.py
 data/*
+
+credentials.json
