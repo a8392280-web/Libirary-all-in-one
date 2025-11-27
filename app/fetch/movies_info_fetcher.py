@@ -57,10 +57,10 @@ def get_movie_info(title_name):
         movie = search_data["results"][0]
         movie_id = movie["id"]
         movie_title = movie.get("title", "Unknown")
-        # print(f"✅ Found movie: {movie_title} (ID: {movie_id})")
+        print(f"✅ Found movie: {movie_title} (ID: {movie_id})")
         
         # 2. GET MOVIE DETAILS
-        # print("🔍 Step 2: Fetching movie details...")
+        print("🔍 Step 2: Fetching movie details...")
         details_response = session.get(
             f"{TMDB_BASE}/movie/{movie_id}",
             params={
@@ -209,7 +209,6 @@ def get_movie_info(title_name):
         languages = [lang["english_name"] for lang in details.get("spoken_languages", [])]
         countries = [country["name"] for country in details.get("production_countries", [])]
         companies = [company["name"] for company in details.get("production_companies", [])]
-        
         result = {
             "Source": "Movie",
             
@@ -226,13 +225,13 @@ def get_movie_info(title_name):
             # "tmdb_rating": round(details.get("vote_average", 0), 1),
             # "tmdb_votes": details.get("vote_count"),
             "Rating": imdb_rating,
-            # "imdb_votes": imdb_votes,
+            "imdb_votes": imdb_votes,
             # "rotten_tomatoes": rotten_tomatoes,
             # "metascore": metascore,
             # "rated": rated,
             
             # IDs
-            #"tmdb_id": movie_id,
+            "tmdb_id": movie_id,
             "imdb_id": imdb_id,
             
             # POSTERS & IMAGES
@@ -283,6 +282,7 @@ def get_movie_info(title_name):
         }
         
         print("✅ Successfully built complete movie data!")
+        print("🎬 Movie:", result["tmdb_id"])
         return result
         
     except requests.exceptions.Timeout:
@@ -295,6 +295,19 @@ def get_movie_info(title_name):
         print(f"❌ Unexpected error: {e}")
         return "no"
 
+
+def get_best_match(movie_name, movies_list, cutoff=0.5):
+    if not movies_list:
+        return None
+
+    titles = [m["name"] for m in movies_list]
+    best_title = get_close_matches(movie_name, titles, n=1, cutoff=cutoff)
+
+    if best_title:
+        for m in movies_list:
+            if m["name"] == best_title[0]:
+                return m["link"]
+    return None
 
 
 class ArabSeedScraper:
@@ -326,21 +339,9 @@ class ArabSeedScraper:
 
         return movies_info
 
-    def get_best_match(self, movie_name, movies_list, cutoff=0.5):
-        if not movies_list:
-            return None
-
-        titles = [m["name"] for m in movies_list]
-        best_title = get_close_matches(movie_name, titles, n=1, cutoff=cutoff)
-
-        if best_title:
-            for m in movies_list:
-                if m["name"] == best_title[0]:
-                    return m["link"]
-        return None
 
     def get_watch_page(self, link):
-        time.sleep(1)
+        time.sleep(0.3)
 
         response = requests.get(link)
         soup = BeautifulSoup(response.text, "html.parser")
@@ -362,13 +363,72 @@ class ArabSeedScraper:
 
     def search_best_movie(self, movie_name, cutoff=0.5):
         movies_list = self.scrape_movies(movie_name)
-        best_match_link = self.get_best_match(movie_name, movies_list, cutoff)
+        best_match_link = get_best_match(movie_name, movies_list, cutoff)
 
         if not best_match_link:
             print("❌ No match found.")
             return None
 
         return self.get_watch_page(best_match_link)
+
+
+class AkwamScraper:
+    def __init__(self, name, year=0, user_agent="Mozilla/5.0"):
+        self.headers = {"User-Agent": user_agent}
+        self.base_url = "https://ak.sv"
+        self.year = int(year)
+        self.watch_url = self.search_best_movie(name)
+        print(self.watch_url)
+        
+
+    def scrape_movies(self, movie_name):
+        encoded_name = quote(movie_name)
+        url = f"{self.base_url}/search?q={encoded_name}&section=movie&year={self.year}&rating=0&formats=0&quality=0"
+
+        response = requests.get(url, headers=self.headers)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # REAL MOVIE CARDS
+        containers = soup.select("div.col-lg-auto.col-md-4.col-6.mb-12")
+ 
+        if not containers:
+            print("No results found! (Selector wrong or blocked)")
+            return []
+
+        movies_info = []
+
+        for div in containers:
+            tag = div.select_one("h3.entry-title a")
+            if not tag:
+                continue
+
+            title = tag.text.strip()
+            link = tag.get("href", "")
+
+            if link.startswith("/"):
+                link = self.base_url + link
+
+
+            movies_info.append({"name": title, "link": link})
+
+        return movies_info
+
+
+    def search_best_movie(self, movie_name, cutoff=0.5):
+        movies_list = self.scrape_movies(movie_name)
+        best_match_link = get_best_match(movie_name, movies_list, cutoff)
+
+        if not best_match_link:
+            print("❌ No match found.")
+            return None
+
+        return best_match_link
+
+
+
+
 
 
 def update_imdb_info_if_old(movie):
@@ -401,6 +461,5 @@ def update_imdb_info_if_old(movie):
             return None
 
     return None
-
 
 

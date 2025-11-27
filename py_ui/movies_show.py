@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'movies_show_uibbIxXh.ui'
+## Form generated from reading UI file 'movies_show_uiWaIktr.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -219,7 +219,7 @@ class Ui_show(object):
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setSpacing(10)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(-1, -1, -1, 10)
+        self.horizontalLayout_2.setContentsMargins(-1, -1, -1, 15)
         self.show_image_lable = QLabel(self.info_scrollarea)
         self.show_image_lable.setObjectName(u"show_image_lable")
         self.show_image_lable.setMinimumSize(QSize(180, 270))
@@ -273,18 +273,6 @@ class Ui_show(object):
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
-
-        self.line_5 = QFrame(self.info_scrollarea)
-        self.line_5.setObjectName(u"line_5")
-        self.line_5.setStyleSheet(u"Line {\n"
-"	background-color: #2e3a4b;\n"
-"	\n"
-"	color: #2e3a4b;\n"
-"}")
-        self.line_5.setFrameShape(QFrame.Shape.HLine)
-        self.line_5.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.verticalLayout_3.addWidget(self.line_5)
 
         self.gridLayout_8 = QGridLayout()
         self.gridLayout_8.setObjectName(u"gridLayout_8")
@@ -674,16 +662,21 @@ class Ui_show(object):
         self.verticalLayout_11 = QVBoxLayout(self.watch_group)
         self.verticalLayout_11.setSpacing(5)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.wahtch_button_1 = QPushButton(self.watch_group)
-        self.wahtch_button_1.setObjectName(u"wahtch_button_1")
-        self.wahtch_button_1.setFlat(False)
+        self.watch_button_1 = QPushButton(self.watch_group)
+        self.watch_button_1.setObjectName(u"watch_button_1")
+        self.watch_button_1.setFlat(False)
 
-        self.verticalLayout_11.addWidget(self.wahtch_button_1)
+        self.verticalLayout_11.addWidget(self.watch_button_1)
 
-        self.wahtch_button_2 = QPushButton(self.watch_group)
-        self.wahtch_button_2.setObjectName(u"wahtch_button_2")
+        self.watch_button_2 = QPushButton(self.watch_group)
+        self.watch_button_2.setObjectName(u"watch_button_2")
 
-        self.verticalLayout_11.addWidget(self.wahtch_button_2)
+        self.verticalLayout_11.addWidget(self.watch_button_2)
+
+        self.watch_button_3 = QPushButton(self.watch_group)
+        self.watch_button_3.setObjectName(u"watch_button_3")
+
+        self.verticalLayout_11.addWidget(self.watch_button_3)
 
         self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -790,11 +783,12 @@ class Ui_show(object):
         self.show_edit_cancel_button.setText(QCoreApplication.translate("show", u"Cancel", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("show", u"Info", None))
         self.watch_group.setTitle(QCoreApplication.translate("show", u"Watch                  ", None))
-        self.wahtch_button_1.setText(QCoreApplication.translate("show", u"TopCima", None))
-        self.wahtch_button_2.setText(QCoreApplication.translate("show", u"ArabSeed", None))
+        self.watch_button_1.setText("")
+        self.watch_button_2.setText("")
+        self.watch_button_3.setText("")
         self.download_group.setTitle(QCoreApplication.translate("show", u"Download                         ", None))
-        self.download_button_1.setText(QCoreApplication.translate("show", u"TopCima", None))
-        self.download_button_2.setText(QCoreApplication.translate("show", u"ArabSeed", None))
+        self.download_button_1.setText("")
+        self.download_button_2.setText("")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("show", u"Find", None))
     # retranslateUi
 

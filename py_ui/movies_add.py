@@ -126,6 +126,16 @@ class Ui_add_widget(object):
 "    selection-background-color: #3c4d63; /* selected item background */\n"
 "    selection-color: #ffffff;\n"
 "}\n"
+"\n"
+"QDialog {\n"
+"    color: white;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QDialog QLabel {\n"
+"    color: white;\n"
+"    border: none;\n"
+"}\n"
 "")
         self.gridLayout_3 = QGridLayout(add_widget)
         self.gridLayout_3.setObjectName(u"gridLayout_3")

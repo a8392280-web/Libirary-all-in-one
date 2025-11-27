@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS movies (
     genres TEXT,
     plot TEXT,
     imdb_id TEXT,
+    tmdb_id INTEGER,
     last_update TEXT,
     created_at TEXT DEFAULT (datetime('now')),
     section TEXT DEFAULT 'want to watch',
@@ -44,6 +45,7 @@ CREATE TABLE IF NOT EXISTS series (
     genres TEXT,
     plot TEXT,
     imdb_id TEXT,
+    tmdb_id INTEGER,
     last_update TEXT,
     created_at TEXT DEFAULT (datetime('now')),
     section TEXT DEFAULT 'want to watch'

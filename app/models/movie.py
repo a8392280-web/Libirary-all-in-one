@@ -15,6 +15,7 @@ class Movie:
     genres: Optional[List[str]] = None   # List of genres
     plot: Optional[str] = None           # Movie description / plot
     imdb_id: Optional[str] = None        # IMDb ID
+    tmdb_id: Optional[int] = None        # TMDB ID
     last_update: Optional[str] = None    # Timestamp of last update (string or ISO format)
     section: str = "want to watch"       # # default section
     trailer: Optional[str] = None        # Trailer URL

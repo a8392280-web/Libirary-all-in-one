@@ -4,3 +4,4 @@ pathlib
 pyside6
 os
 requsts
+google-auth google-auth-oauthlib google-api-python-client

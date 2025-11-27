@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_uiIFntcQ.ui'
+## Form generated from reading UI file 'main_uidUjXgU.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -25,7 +25,7 @@ class Ui_main_widget(object):
     def setupUi(self, main_widget):
         if not main_widget.objectName():
             main_widget.setObjectName(u"main_widget")
-        main_widget.resize(1118, 839)
+        main_widget.resize(1118, 838)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -42,285 +42,6 @@ class Ui_main_widget(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.side_widget = QWidget(main_widget)
-        self.side_widget.setObjectName(u"side_widget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.side_widget.sizePolicy().hasHeightForWidth())
-        self.side_widget.setSizePolicy(sizePolicy1)
-        self.side_widget.setStyleSheet(u"/* Sidebar Container */\n"
-"QWidget {\n"
-"    background-color:#2b3640;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"/* Navigation Buttons */\n"
-"QPushButton {\n"
-"    background-color: transparent;\n"
-"    color: white;\n"
-"    text-align: left;\n"
-"    border: none;\n"
-"    padding:6px 50px 5px 20px;\n"
-"    font-size: 14px;\n"
-"    font-weight: normal;\n"
-"    margin: 0px 0px;\n"
-"    border-radius: 6px;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgb(65, 65, 65);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: rgb(75, 75, 75);\n"
-"}\n"
-"\n"
-"QPushButton:checked {\n"
-"    background-color: white;\n"
-"    color: black;\n"
-"    border-top-left-radius: 10px;\n"
-"    border-bottom-left-radius: 10px;\n"
-"    border-top-right-radius: 0px;\n"
-"    border-bottom-right-radius: 0px;\n"
-"    font-weight: bold;\n"
-"}\n"
-"\n"
-"/* Section Headers/Labels */\n"
-"QLabel {\n"
-"    color: rgb(255, 255, 255);\n"
-"    font-size: 15px;\n"
-"    font-weight: bold;\n"
-"    text-transform: normal;\n"
-"    pad"
-                        "ding: 8px 0px ;\n"
-"    margin-top: 8px;\n"
-"}\n"
-"\n"
-"/* Icon Labels (if you're using QLabel for icons) */\n"
-"QLabel#iconLabel {\n"
-"    color: white;\n"
-"    font-size: 16px;\n"
-"    padding: 0px;\n"
-"    margin: 0px;\n"
-"}\n"
-"\n"
-"/* Separator Line */\n"
-"Line {\n"
-"    background-color: rgb(70, 70, 70);\n"
-"    border: none;\n"
-"    max-height: 1px;\n"
-"    min-height: 1px;\n"
-"	margin: 0px 12px;\n"
-"}\n"
-"")
-        self.verticalLayout = QVBoxLayout(self.side_widget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(9, 9, 0, 9)
-        self.pushButton_13 = QPushButton(self.side_widget)
-        self.pushButton_13.setObjectName(u"pushButton_13")
-        icon = QIcon()
-        icon.addFile(u":/icons/Icons/boy.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.pushButton_13.setIcon(icon)
-        self.pushButton_13.setIconSize(QSize(40, 40))
-
-        self.verticalLayout.addWidget(self.pushButton_13)
-
-        self.line_3 = QFrame(self.side_widget)
-        self.line_3.setObjectName(u"line_3")
-        self.line_3.setFrameShape(QFrame.Shape.HLine)
-        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.verticalLayout.addWidget(self.line_3)
-
-        self.label_4 = QLabel(self.side_widget)
-        self.label_4.setObjectName(u"label_4")
-        font = QFont()
-        font.setBold(True)
-        self.label_4.setFont(font)
-
-        self.verticalLayout.addWidget(self.label_4)
-
-        self.show_movies = QPushButton(self.side_widget)
-        self.show_movies.setObjectName(u"show_movies")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.show_movies.sizePolicy().hasHeightForWidth())
-        self.show_movies.setSizePolicy(sizePolicy2)
-        self.show_movies.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.show_movies.setAutoFillBackground(False)
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/Icons/film 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon1.addFile(u":/icons/Icons/film.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_movies.setIcon(icon1)
-        self.show_movies.setIconSize(QSize(23, 23))
-        self.show_movies.setCheckable(True)
-        self.show_movies.setAutoExclusive(True)
-        self.show_movies.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_movies)
-
-        self.show_series = QPushButton(self.side_widget)
-        self.show_series.setObjectName(u"show_series")
-        sizePolicy2.setHeightForWidth(self.show_series.sizePolicy().hasHeightForWidth())
-        self.show_series.setSizePolicy(sizePolicy2)
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/Icons/watching 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon2.addFile(u":/icons/Icons/watching.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_series.setIcon(icon2)
-        self.show_series.setIconSize(QSize(25, 25))
-        self.show_series.setCheckable(True)
-        self.show_series.setAutoExclusive(True)
-        self.show_series.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_series)
-
-        self.show_games = QPushButton(self.side_widget)
-        self.show_games.setObjectName(u"show_games")
-        sizePolicy2.setHeightForWidth(self.show_games.sizePolicy().hasHeightForWidth())
-        self.show_games.setSizePolicy(sizePolicy2)
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/Icons/console 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon3.addFile(u":/icons/Icons/console.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_games.setIcon(icon3)
-        self.show_games.setIconSize(QSize(25, 25))
-        self.show_games.setCheckable(True)
-        self.show_games.setAutoExclusive(True)
-        self.show_games.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_games)
-
-        self.show_books = QPushButton(self.side_widget)
-        self.show_books.setObjectName(u"show_books")
-        sizePolicy2.setHeightForWidth(self.show_books.sizePolicy().hasHeightForWidth())
-        self.show_books.setSizePolicy(sizePolicy2)
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/Icons/book 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon4.addFile(u":/icons/Icons/book.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_books.setIcon(icon4)
-        self.show_books.setIconSize(QSize(25, 25))
-        self.show_books.setCheckable(True)
-        self.show_books.setAutoExclusive(True)
-        self.show_books.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_books)
-
-        self.show_comics = QPushButton(self.side_widget)
-        self.show_comics.setObjectName(u"show_comics")
-        sizePolicy2.setHeightForWidth(self.show_comics.sizePolicy().hasHeightForWidth())
-        self.show_comics.setSizePolicy(sizePolicy2)
-        icon5 = QIcon()
-        icon5.addFile(u":/icons/Icons/comic 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon5.addFile(u":/icons/Icons/comic.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_comics.setIcon(icon5)
-        self.show_comics.setIconSize(QSize(25, 25))
-        self.show_comics.setCheckable(True)
-        self.show_comics.setAutoExclusive(True)
-        self.show_comics.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_comics)
-
-        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer_6)
-
-        self.line_4 = QFrame(self.side_widget)
-        self.line_4.setObjectName(u"line_4")
-        self.line_4.setFrameShape(QFrame.Shape.HLine)
-        self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.verticalLayout.addWidget(self.line_4)
-
-        self.label_5 = QLabel(self.side_widget)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font)
-        self.label_5.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-
-        self.verticalLayout.addWidget(self.label_5)
-
-        self.show_home = QPushButton(self.side_widget)
-        self.show_home.setObjectName(u"show_home")
-        sizePolicy2.setHeightForWidth(self.show_home.sizePolicy().hasHeightForWidth())
-        self.show_home.setSizePolicy(sizePolicy2)
-        icon6 = QIcon()
-        icon6.addFile(u":/icons/Icons/home 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon6.addFile(u":/icons/Icons/home.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_home.setIcon(icon6)
-        self.show_home.setIconSize(QSize(25, 25))
-        self.show_home.setCheckable(True)
-        self.show_home.setAutoExclusive(True)
-        self.show_home.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_home)
-
-        self.show_profile = QPushButton(self.side_widget)
-        self.show_profile.setObjectName(u"show_profile")
-        sizePolicy2.setHeightForWidth(self.show_profile.sizePolicy().hasHeightForWidth())
-        self.show_profile.setSizePolicy(sizePolicy2)
-        icon7 = QIcon()
-        icon7.addFile(u":/icons/Icons/user 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon7.addFile(u":/icons/Icons/user.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_profile.setIcon(icon7)
-        self.show_profile.setIconSize(QSize(25, 25))
-        self.show_profile.setCheckable(True)
-        self.show_profile.setAutoExclusive(True)
-        self.show_profile.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_profile)
-
-        self.show_dashboard = QPushButton(self.side_widget)
-        self.show_dashboard.setObjectName(u"show_dashboard")
-        sizePolicy2.setHeightForWidth(self.show_dashboard.sizePolicy().hasHeightForWidth())
-        self.show_dashboard.setSizePolicy(sizePolicy2)
-        icon8 = QIcon()
-        icon8.addFile(u":/icons/Icons/dashboard 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon8.addFile(u":/icons/Icons/dashboard.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        icon8.addFile(u":/icons/Icons/dashboard.png", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
-        self.show_dashboard.setIcon(icon8)
-        self.show_dashboard.setIconSize(QSize(30, 30))
-        self.show_dashboard.setCheckable(True)
-        self.show_dashboard.setAutoExclusive(True)
-        self.show_dashboard.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_dashboard)
-
-        self.show_setting = QPushButton(self.side_widget)
-        self.show_setting.setObjectName(u"show_setting")
-        sizePolicy2.setHeightForWidth(self.show_setting.sizePolicy().hasHeightForWidth())
-        self.show_setting.setSizePolicy(sizePolicy2)
-        icon9 = QIcon()
-        icon9.addFile(u":/icons/Icons/setting 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon9.addFile(u":/icons/Icons/setting.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.show_setting.setIcon(icon9)
-        self.show_setting.setIconSize(QSize(25, 25))
-        self.show_setting.setCheckable(True)
-        self.show_setting.setAutoExclusive(True)
-        self.show_setting.setFlat(True)
-
-        self.verticalLayout.addWidget(self.show_setting)
-
-        self.verticalSpacer = QSpacerItem(143, 18, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout.addItem(self.verticalSpacer)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.verticalLayout.addItem(self.verticalSpacer_2)
-
-        self.logout = QPushButton(self.side_widget)
-        self.logout.setObjectName(u"logout")
-        icon10 = QIcon()
-        icon10.addFile(u":/icons/Icons/exit 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon10.addFile(u":/icons/Icons/exit.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.logout.setIcon(icon10)
-        self.logout.setIconSize(QSize(25, 25))
-
-        self.verticalLayout.addWidget(self.logout)
-
-
-        self.gridLayout.addWidget(self.side_widget, 0, 0, 1, 1)
-
         self.main_body_widget = QWidget(main_widget)
         self.main_body_widget.setObjectName(u"main_body_widget")
         sizePolicy.setHeightForWidth(self.main_body_widget.sizePolicy().hasHeightForWidth())
@@ -459,32 +180,32 @@ class Ui_main_widget(object):
         self.welcome_section.setStyleSheet(u"")
         self.gridLayout_3 = QGridLayout(self.welcome_section)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_3.addItem(self.horizontalSpacer_3, 0, 1, 1, 1)
+
         self.label_2 = QLabel(self.welcome_section)
         self.label_2.setObjectName(u"label_2")
 
         self.gridLayout_3.addWidget(self.label_2, 2, 0, 1, 1)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.gridLayout_3.addItem(self.verticalSpacer_3, 1, 0, 1, 1)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.gridLayout_3.addItem(self.horizontalSpacer_3, 0, 1, 1, 1)
-
         self.label = QLabel(self.welcome_section)
         self.label.setObjectName(u"label")
-        font1 = QFont()
-        font1.setFamilies([u"Arial Rounded MT"])
-        font1.setPointSize(36)
-        font1.setBold(True)
-        self.label.setFont(font1)
+        font = QFont()
+        font.setFamilies([u"Arial Rounded MT"])
+        font.setPointSize(36)
+        font.setBold(True)
+        self.label.setFont(font)
         self.label.setStyleSheet(u"QLabel {\n"
 "    color: rgb(230, 230, 230);}")
         self.label.setTextFormat(Qt.TextFormat.RichText)
         self.label.setScaledContents(False)
 
         self.gridLayout_3.addWidget(self.label, 0, 0, 1, 1)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout_3.addItem(self.verticalSpacer_3, 1, 0, 1, 1)
 
         self.stacked_body_Widget.addWidget(self.welcome_section)
         self.movies_section = QWidget()
@@ -504,9 +225,9 @@ class Ui_main_widget(object):
         self.movies_menu = QPushButton(self.movies_section)
         self.movies_menu.setObjectName(u"movies_menu")
         self.movies_menu.setAutoFillBackground(False)
-        icon11 = QIcon()
-        icon11.addFile(u":/icons/Icons/more.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.movies_menu.setIcon(icon11)
+        icon = QIcon()
+        icon.addFile(u":/icons/Icons/more.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.movies_menu.setIcon(icon)
         self.movies_menu.setIconSize(QSize(20, 20))
         self.movies_menu.setCheckable(True)
         self.movies_menu.setFlat(False)
@@ -515,11 +236,11 @@ class Ui_main_widget(object):
 
         self.movies_label = QLabel(self.movies_section)
         self.movies_label.setObjectName(u"movies_label")
-        font2 = QFont()
-        font2.setFamilies([u"Arial Rounded MT"])
-        font2.setPointSize(20)
-        font2.setBold(True)
-        self.movies_label.setFont(font2)
+        font1 = QFont()
+        font1.setFamilies([u"Arial Rounded MT"])
+        font1.setPointSize(20)
+        font1.setBold(True)
+        self.movies_label.setFont(font1)
 
         self.horizontalLayout_2.addWidget(self.movies_label)
 
@@ -529,15 +250,18 @@ class Ui_main_widget(object):
 
         self.movies_add_botton = QPushButton(self.movies_section)
         self.movies_add_botton.setObjectName(u"movies_add_botton")
-        sizePolicy2.setHeightForWidth(self.movies_add_botton.sizePolicy().hasHeightForWidth())
-        self.movies_add_botton.setSizePolicy(sizePolicy2)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.movies_add_botton.sizePolicy().hasHeightForWidth())
+        self.movies_add_botton.setSizePolicy(sizePolicy1)
         self.movies_add_botton.setMinimumSize(QSize(100, 0))
         self.movies_add_botton.setMaximumSize(QSize(50, 16777215))
         self.movies_add_botton.setAutoFillBackground(False)
         self.movies_add_botton.setStyleSheet(u"")
-        icon12 = QIcon()
-        icon12.addFile(u":/icons/Icons/plus.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.movies_add_botton.setIcon(icon12)
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/Icons/plus.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.movies_add_botton.setIcon(icon1)
         self.movies_add_botton.setIconSize(QSize(30, 30))
         self.movies_add_botton.setFlat(True)
 
@@ -548,11 +272,11 @@ class Ui_main_widget(object):
 
         self.movies_tap_widget = QTabWidget(self.movies_section)
         self.movies_tap_widget.setObjectName(u"movies_tap_widget")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.movies_tap_widget.sizePolicy().hasHeightForWidth())
-        self.movies_tap_widget.setSizePolicy(sizePolicy3)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.movies_tap_widget.sizePolicy().hasHeightForWidth())
+        self.movies_tap_widget.setSizePolicy(sizePolicy2)
         self.movies_tap_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.DefaultContextMenu)
         self.movies_tap_widget.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.movies_tap_widget.setAutoFillBackground(False)
@@ -580,9 +304,9 @@ class Ui_main_widget(object):
         self.horizontalLayout_5.setContentsMargins(5, 0, 5, -1)
         self.movies_search_icon_1 = QPushButton(self.movies_watching)
         self.movies_search_icon_1.setObjectName(u"movies_search_icon_1")
-        icon13 = QIcon()
-        icon13.addFile(u":/icons/Icons/search.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.movies_search_icon_1.setIcon(icon13)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/Icons/search.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.movies_search_icon_1.setIcon(icon2)
         self.movies_search_icon_1.setIconSize(QSize(32, 32))
         self.movies_search_icon_1.setCheckable(True)
 
@@ -607,9 +331,9 @@ class Ui_main_widget(object):
         self.movies_random_button_1.setObjectName(u"movies_random_button_1")
         self.movies_random_button_1.setAutoFillBackground(False)
         self.movies_random_button_1.setStyleSheet(u"")
-        icon14 = QIcon()
-        icon14.addFile(u":/icons/Icons/dice.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.movies_random_button_1.setIcon(icon14)
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/Icons/dice.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.movies_random_button_1.setIcon(icon3)
         self.movies_random_button_1.setIconSize(QSize(32, 32))
         self.movies_random_button_1.setFlat(True)
 
@@ -621,10 +345,10 @@ class Ui_main_widget(object):
 
         self.movies_view_1 = QPushButton(self.movies_watching)
         self.movies_view_1.setObjectName(u"movies_view_1")
-        icon15 = QIcon()
-        icon15.addFile(u":/icons/Icons/list.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        icon15.addFile(u":/icons/Icons/grid.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.movies_view_1.setIcon(icon15)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/Icons/list.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon4.addFile(u":/icons/Icons/grid.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.movies_view_1.setIcon(icon4)
         self.movies_view_1.setIconSize(QSize(32, 32))
         self.movies_view_1.setCheckable(True)
 
@@ -681,7 +405,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_8.setContentsMargins(5, -1, 5, -1)
         self.movies_search_icon_2 = QPushButton(self.movies_want_to_watch)
         self.movies_search_icon_2.setObjectName(u"movies_search_icon_2")
-        self.movies_search_icon_2.setIcon(icon13)
+        self.movies_search_icon_2.setIcon(icon2)
         self.movies_search_icon_2.setIconSize(QSize(32, 32))
         self.movies_search_icon_2.setCheckable(True)
 
@@ -705,7 +429,7 @@ class Ui_main_widget(object):
         self.movies_random_button_2 = QPushButton(self.movies_want_to_watch)
         self.movies_random_button_2.setObjectName(u"movies_random_button_2")
         self.movies_random_button_2.setAutoFillBackground(False)
-        self.movies_random_button_2.setIcon(icon14)
+        self.movies_random_button_2.setIcon(icon3)
         self.movies_random_button_2.setIconSize(QSize(32, 32))
         self.movies_random_button_2.setFlat(True)
 
@@ -717,7 +441,7 @@ class Ui_main_widget(object):
 
         self.movies_view_2 = QPushButton(self.movies_want_to_watch)
         self.movies_view_2.setObjectName(u"movies_view_2")
-        self.movies_view_2.setIcon(icon15)
+        self.movies_view_2.setIcon(icon4)
         self.movies_view_2.setIconSize(QSize(32, 32))
         self.movies_view_2.setCheckable(True)
 
@@ -766,7 +490,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_9.setContentsMargins(5, -1, 5, -1)
         self.movies_search_icon_3 = QPushButton(self.movies_continue_later)
         self.movies_search_icon_3.setObjectName(u"movies_search_icon_3")
-        self.movies_search_icon_3.setIcon(icon13)
+        self.movies_search_icon_3.setIcon(icon2)
         self.movies_search_icon_3.setIconSize(QSize(32, 32))
         self.movies_search_icon_3.setCheckable(True)
 
@@ -790,7 +514,7 @@ class Ui_main_widget(object):
         self.movies_random_button_3 = QPushButton(self.movies_continue_later)
         self.movies_random_button_3.setObjectName(u"movies_random_button_3")
         self.movies_random_button_3.setAutoFillBackground(False)
-        self.movies_random_button_3.setIcon(icon14)
+        self.movies_random_button_3.setIcon(icon3)
         self.movies_random_button_3.setIconSize(QSize(32, 32))
         self.movies_random_button_3.setFlat(True)
 
@@ -802,7 +526,7 @@ class Ui_main_widget(object):
 
         self.movies_view_3 = QPushButton(self.movies_continue_later)
         self.movies_view_3.setObjectName(u"movies_view_3")
-        self.movies_view_3.setIcon(icon15)
+        self.movies_view_3.setIcon(icon4)
         self.movies_view_3.setIconSize(QSize(32, 32))
         self.movies_view_3.setCheckable(True)
 
@@ -851,7 +575,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_10.setContentsMargins(5, -1, 5, -1)
         self.movies_search_icon_4 = QPushButton(self.movies_dont_want_to_watch)
         self.movies_search_icon_4.setObjectName(u"movies_search_icon_4")
-        self.movies_search_icon_4.setIcon(icon13)
+        self.movies_search_icon_4.setIcon(icon2)
         self.movies_search_icon_4.setIconSize(QSize(32, 32))
         self.movies_search_icon_4.setCheckable(True)
 
@@ -875,7 +599,7 @@ class Ui_main_widget(object):
         self.movies_random_button_4 = QPushButton(self.movies_dont_want_to_watch)
         self.movies_random_button_4.setObjectName(u"movies_random_button_4")
         self.movies_random_button_4.setAutoFillBackground(False)
-        self.movies_random_button_4.setIcon(icon14)
+        self.movies_random_button_4.setIcon(icon3)
         self.movies_random_button_4.setIconSize(QSize(32, 32))
         self.movies_random_button_4.setFlat(True)
 
@@ -887,7 +611,7 @@ class Ui_main_widget(object):
 
         self.movies_view_4 = QPushButton(self.movies_dont_want_to_watch)
         self.movies_view_4.setObjectName(u"movies_view_4")
-        self.movies_view_4.setIcon(icon15)
+        self.movies_view_4.setIcon(icon4)
         self.movies_view_4.setIconSize(QSize(32, 32))
         self.movies_view_4.setCheckable(True)
 
@@ -936,7 +660,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_11.setContentsMargins(5, -1, 5, -1)
         self.movies_search_icon_5 = QPushButton(self.movies_ended)
         self.movies_search_icon_5.setObjectName(u"movies_search_icon_5")
-        self.movies_search_icon_5.setIcon(icon13)
+        self.movies_search_icon_5.setIcon(icon2)
         self.movies_search_icon_5.setIconSize(QSize(32, 32))
         self.movies_search_icon_5.setCheckable(True)
 
@@ -961,7 +685,7 @@ class Ui_main_widget(object):
         self.movies_random_button_5 = QPushButton(self.movies_ended)
         self.movies_random_button_5.setObjectName(u"movies_random_button_5")
         self.movies_random_button_5.setAutoFillBackground(False)
-        self.movies_random_button_5.setIcon(icon14)
+        self.movies_random_button_5.setIcon(icon3)
         self.movies_random_button_5.setIconSize(QSize(32, 32))
         self.movies_random_button_5.setFlat(True)
 
@@ -973,7 +697,7 @@ class Ui_main_widget(object):
 
         self.movies_view_5 = QPushButton(self.movies_ended)
         self.movies_view_5.setObjectName(u"movies_view_5")
-        self.movies_view_5.setIcon(icon15)
+        self.movies_view_5.setIcon(icon4)
         self.movies_view_5.setIconSize(QSize(32, 32))
         self.movies_view_5.setCheckable(True)
 
@@ -1029,7 +753,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.series_label = QLabel(self.series_section)
         self.series_label.setObjectName(u"series_label")
-        self.series_label.setFont(font1)
+        self.series_label.setFont(font)
 
         self.horizontalLayout_4.addWidget(self.series_label)
 
@@ -1043,7 +767,7 @@ class Ui_main_widget(object):
         self.series_add_button.setMaximumSize(QSize(50, 16777215))
         self.series_add_button.setAutoFillBackground(False)
         self.series_add_button.setStyleSheet(u"")
-        self.series_add_button.setIcon(icon12)
+        self.series_add_button.setIcon(icon1)
         self.series_add_button.setIconSize(QSize(60, 60))
         self.series_add_button.setFlat(True)
 
@@ -1054,8 +778,8 @@ class Ui_main_widget(object):
 
         self.series_tap_widget = QTabWidget(self.series_section)
         self.series_tap_widget.setObjectName(u"series_tap_widget")
-        sizePolicy3.setHeightForWidth(self.series_tap_widget.sizePolicy().hasHeightForWidth())
-        self.series_tap_widget.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.series_tap_widget.sizePolicy().hasHeightForWidth())
+        self.series_tap_widget.setSizePolicy(sizePolicy2)
         self.series_tap_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.DefaultContextMenu)
         self.series_tap_widget.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.series_tap_widget.setAutoFillBackground(False)
@@ -1134,7 +858,7 @@ class Ui_main_widget(object):
 "QPushButton:pressed {\n"
 "    background-color: rgb(79, 79, 79);\n"
 "}")
-        self.series_random_button_1.setIcon(icon14)
+        self.series_random_button_1.setIcon(icon3)
         self.series_random_button_1.setIconSize(QSize(50, 30))
         self.series_random_button_1.setFlat(True)
 
@@ -1210,7 +934,7 @@ class Ui_main_widget(object):
         self.series_random_button_2 = QPushButton(self.movies_want_to_watch_2)
         self.series_random_button_2.setObjectName(u"series_random_button_2")
         self.series_random_button_2.setAutoFillBackground(False)
-        self.series_random_button_2.setIcon(icon14)
+        self.series_random_button_2.setIcon(icon3)
         self.series_random_button_2.setIconSize(QSize(50, 30))
         self.series_random_button_2.setFlat(True)
 
@@ -1278,7 +1002,7 @@ class Ui_main_widget(object):
         self.series_random_button_3 = QPushButton(self.movies_continue_later_2)
         self.series_random_button_3.setObjectName(u"series_random_button_3")
         self.series_random_button_3.setAutoFillBackground(False)
-        self.series_random_button_3.setIcon(icon14)
+        self.series_random_button_3.setIcon(icon3)
         self.series_random_button_3.setIconSize(QSize(50, 30))
         self.series_random_button_3.setFlat(True)
 
@@ -1346,7 +1070,7 @@ class Ui_main_widget(object):
         self.series_random_button_4 = QPushButton(self.movies_dont_want_to_watch_2)
         self.series_random_button_4.setObjectName(u"series_random_button_4")
         self.series_random_button_4.setAutoFillBackground(False)
-        self.series_random_button_4.setIcon(icon14)
+        self.series_random_button_4.setIcon(icon3)
         self.series_random_button_4.setIconSize(QSize(50, 30))
         self.series_random_button_4.setFlat(True)
 
@@ -1414,7 +1138,7 @@ class Ui_main_widget(object):
         self.series_random_button_5 = QPushButton(self.movies_ended_2)
         self.series_random_button_5.setObjectName(u"series_random_button_5")
         self.series_random_button_5.setAutoFillBackground(False)
-        self.series_random_button_5.setIcon(icon14)
+        self.series_random_button_5.setIcon(icon3)
         self.series_random_button_5.setIconSize(QSize(50, 30))
         self.series_random_button_5.setFlat(True)
 
@@ -1471,7 +1195,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
         self.games_label = QLabel(self.games_section)
         self.games_label.setObjectName(u"games_label")
-        self.games_label.setFont(font1)
+        self.games_label.setFont(font)
 
         self.horizontalLayout_18.addWidget(self.games_label)
 
@@ -1485,7 +1209,7 @@ class Ui_main_widget(object):
         self.games_add_botton.setMaximumSize(QSize(50, 16777215))
         self.games_add_botton.setAutoFillBackground(False)
         self.games_add_botton.setStyleSheet(u"")
-        self.games_add_botton.setIcon(icon12)
+        self.games_add_botton.setIcon(icon1)
         self.games_add_botton.setIconSize(QSize(60, 60))
         self.games_add_botton.setFlat(True)
 
@@ -1496,8 +1220,8 @@ class Ui_main_widget(object):
 
         self.games_tap_widget = QTabWidget(self.games_section)
         self.games_tap_widget.setObjectName(u"games_tap_widget")
-        sizePolicy3.setHeightForWidth(self.games_tap_widget.sizePolicy().hasHeightForWidth())
-        self.games_tap_widget.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.games_tap_widget.sizePolicy().hasHeightForWidth())
+        self.games_tap_widget.setSizePolicy(sizePolicy2)
         self.games_tap_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.DefaultContextMenu)
         self.games_tap_widget.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.games_tap_widget.setAutoFillBackground(False)
@@ -1541,7 +1265,7 @@ class Ui_main_widget(object):
         self.games_random_button_1 = QPushButton(self.movies_watching_3)
         self.games_random_button_1.setObjectName(u"games_random_button_1")
         self.games_random_button_1.setAutoFillBackground(False)
-        self.games_random_button_1.setIcon(icon14)
+        self.games_random_button_1.setIcon(icon3)
         self.games_random_button_1.setIconSize(QSize(50, 30))
         self.games_random_button_1.setFlat(True)
 
@@ -1609,7 +1333,7 @@ class Ui_main_widget(object):
         self.games_random_button_2 = QPushButton(self.movies_want_to_watch_3)
         self.games_random_button_2.setObjectName(u"games_random_button_2")
         self.games_random_button_2.setAutoFillBackground(False)
-        self.games_random_button_2.setIcon(icon14)
+        self.games_random_button_2.setIcon(icon3)
         self.games_random_button_2.setIconSize(QSize(50, 30))
         self.games_random_button_2.setFlat(True)
 
@@ -1677,7 +1401,7 @@ class Ui_main_widget(object):
         self.games_random_button_3 = QPushButton(self.movies_continue_later_3)
         self.games_random_button_3.setObjectName(u"games_random_button_3")
         self.games_random_button_3.setAutoFillBackground(False)
-        self.games_random_button_3.setIcon(icon14)
+        self.games_random_button_3.setIcon(icon3)
         self.games_random_button_3.setIconSize(QSize(50, 30))
         self.games_random_button_3.setFlat(True)
 
@@ -1745,7 +1469,7 @@ class Ui_main_widget(object):
         self.games_random_button_4 = QPushButton(self.movies_dont_want_to_watch_3)
         self.games_random_button_4.setObjectName(u"games_random_button_4")
         self.games_random_button_4.setAutoFillBackground(False)
-        self.games_random_button_4.setIcon(icon14)
+        self.games_random_button_4.setIcon(icon3)
         self.games_random_button_4.setIconSize(QSize(50, 30))
         self.games_random_button_4.setFlat(True)
 
@@ -1813,7 +1537,7 @@ class Ui_main_widget(object):
         self.games_random_button_5 = QPushButton(self.movies_ended_3)
         self.games_random_button_5.setObjectName(u"games_random_button_5")
         self.games_random_button_5.setAutoFillBackground(False)
-        self.games_random_button_5.setIcon(icon14)
+        self.games_random_button_5.setIcon(icon3)
         self.games_random_button_5.setIconSize(QSize(50, 30))
         self.games_random_button_5.setFlat(True)
 
@@ -1870,7 +1594,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.books_label = QLabel(self.books_section)
         self.books_label.setObjectName(u"books_label")
-        self.books_label.setFont(font1)
+        self.books_label.setFont(font)
 
         self.horizontalLayout_3.addWidget(self.books_label)
 
@@ -1884,7 +1608,7 @@ class Ui_main_widget(object):
         self.books_add_botton.setMaximumSize(QSize(50, 16777215))
         self.books_add_botton.setAutoFillBackground(False)
         self.books_add_botton.setStyleSheet(u"")
-        self.books_add_botton.setIcon(icon12)
+        self.books_add_botton.setIcon(icon1)
         self.books_add_botton.setIconSize(QSize(60, 60))
         self.books_add_botton.setFlat(True)
 
@@ -1895,8 +1619,8 @@ class Ui_main_widget(object):
 
         self.books_tap_widget = QTabWidget(self.books_section)
         self.books_tap_widget.setObjectName(u"books_tap_widget")
-        sizePolicy3.setHeightForWidth(self.books_tap_widget.sizePolicy().hasHeightForWidth())
-        self.books_tap_widget.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.books_tap_widget.sizePolicy().hasHeightForWidth())
+        self.books_tap_widget.setSizePolicy(sizePolicy2)
         self.books_tap_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.DefaultContextMenu)
         self.books_tap_widget.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.books_tap_widget.setAutoFillBackground(False)
@@ -1940,7 +1664,7 @@ class Ui_main_widget(object):
         self.books_random_button_1 = QPushButton(self.movies_watching_4)
         self.books_random_button_1.setObjectName(u"books_random_button_1")
         self.books_random_button_1.setAutoFillBackground(False)
-        self.books_random_button_1.setIcon(icon14)
+        self.books_random_button_1.setIcon(icon3)
         self.books_random_button_1.setIconSize(QSize(50, 30))
         self.books_random_button_1.setFlat(True)
 
@@ -2008,7 +1732,7 @@ class Ui_main_widget(object):
         self.books_random_button_2 = QPushButton(self.movies_want_to_watch_4)
         self.books_random_button_2.setObjectName(u"books_random_button_2")
         self.books_random_button_2.setAutoFillBackground(False)
-        self.books_random_button_2.setIcon(icon14)
+        self.books_random_button_2.setIcon(icon3)
         self.books_random_button_2.setIconSize(QSize(50, 30))
         self.books_random_button_2.setFlat(True)
 
@@ -2076,7 +1800,7 @@ class Ui_main_widget(object):
         self.books_random_button_3 = QPushButton(self.movies_continue_later_4)
         self.books_random_button_3.setObjectName(u"books_random_button_3")
         self.books_random_button_3.setAutoFillBackground(False)
-        self.books_random_button_3.setIcon(icon14)
+        self.books_random_button_3.setIcon(icon3)
         self.books_random_button_3.setIconSize(QSize(50, 30))
         self.books_random_button_3.setFlat(True)
 
@@ -2144,7 +1868,7 @@ class Ui_main_widget(object):
         self.books_random_button_4 = QPushButton(self.movies_dont_want_to_watch_4)
         self.books_random_button_4.setObjectName(u"books_random_button_4")
         self.books_random_button_4.setAutoFillBackground(False)
-        self.books_random_button_4.setIcon(icon14)
+        self.books_random_button_4.setIcon(icon3)
         self.books_random_button_4.setIconSize(QSize(50, 30))
         self.books_random_button_4.setFlat(True)
 
@@ -2212,7 +1936,7 @@ class Ui_main_widget(object):
         self.books_random_button_5 = QPushButton(self.movies_ended_4)
         self.books_random_button_5.setObjectName(u"books_random_button_5")
         self.books_random_button_5.setAutoFillBackground(False)
-        self.books_random_button_5.setIcon(icon14)
+        self.books_random_button_5.setIcon(icon3)
         self.books_random_button_5.setIconSize(QSize(50, 30))
         self.books_random_button_5.setFlat(True)
 
@@ -2269,7 +1993,7 @@ class Ui_main_widget(object):
         self.horizontalLayout_34.setObjectName(u"horizontalLayout_34")
         self.comics_label = QLabel(self.comics_section)
         self.comics_label.setObjectName(u"comics_label")
-        self.comics_label.setFont(font1)
+        self.comics_label.setFont(font)
 
         self.horizontalLayout_34.addWidget(self.comics_label)
 
@@ -2283,7 +2007,7 @@ class Ui_main_widget(object):
         self.comics_add_botton.setMaximumSize(QSize(50, 16777215))
         self.comics_add_botton.setAutoFillBackground(False)
         self.comics_add_botton.setStyleSheet(u"")
-        self.comics_add_botton.setIcon(icon12)
+        self.comics_add_botton.setIcon(icon1)
         self.comics_add_botton.setIconSize(QSize(60, 60))
         self.comics_add_botton.setFlat(True)
 
@@ -2294,8 +2018,8 @@ class Ui_main_widget(object):
 
         self.comics_tap_widget = QTabWidget(self.comics_section)
         self.comics_tap_widget.setObjectName(u"comics_tap_widget")
-        sizePolicy3.setHeightForWidth(self.comics_tap_widget.sizePolicy().hasHeightForWidth())
-        self.comics_tap_widget.setSizePolicy(sizePolicy3)
+        sizePolicy2.setHeightForWidth(self.comics_tap_widget.sizePolicy().hasHeightForWidth())
+        self.comics_tap_widget.setSizePolicy(sizePolicy2)
         self.comics_tap_widget.setContextMenuPolicy(Qt.ContextMenuPolicy.DefaultContextMenu)
         self.comics_tap_widget.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.comics_tap_widget.setAutoFillBackground(False)
@@ -2339,7 +2063,7 @@ class Ui_main_widget(object):
         self.comics_random_button_1 = QPushButton(self.movies_watching_6)
         self.comics_random_button_1.setObjectName(u"comics_random_button_1")
         self.comics_random_button_1.setAutoFillBackground(False)
-        self.comics_random_button_1.setIcon(icon14)
+        self.comics_random_button_1.setIcon(icon3)
         self.comics_random_button_1.setIconSize(QSize(50, 30))
         self.comics_random_button_1.setFlat(True)
 
@@ -2407,7 +2131,7 @@ class Ui_main_widget(object):
         self.comics_random_button_2 = QPushButton(self.movies_want_to_watch_6)
         self.comics_random_button_2.setObjectName(u"comics_random_button_2")
         self.comics_random_button_2.setAutoFillBackground(False)
-        self.comics_random_button_2.setIcon(icon14)
+        self.comics_random_button_2.setIcon(icon3)
         self.comics_random_button_2.setIconSize(QSize(50, 30))
         self.comics_random_button_2.setFlat(True)
 
@@ -2475,7 +2199,7 @@ class Ui_main_widget(object):
         self.comics_random_button_3 = QPushButton(self.movies_continue_later_6)
         self.comics_random_button_3.setObjectName(u"comics_random_button_3")
         self.comics_random_button_3.setAutoFillBackground(False)
-        self.comics_random_button_3.setIcon(icon14)
+        self.comics_random_button_3.setIcon(icon3)
         self.comics_random_button_3.setIconSize(QSize(50, 30))
         self.comics_random_button_3.setFlat(True)
 
@@ -2560,7 +2284,7 @@ class Ui_main_widget(object):
         self.comics_random_button_4 = QPushButton(self.movies_dont_want_to_watch_6)
         self.comics_random_button_4.setObjectName(u"comics_random_button_4")
         self.comics_random_button_4.setAutoFillBackground(False)
-        self.comics_random_button_4.setIcon(icon14)
+        self.comics_random_button_4.setIcon(icon3)
         self.comics_random_button_4.setIconSize(QSize(50, 30))
         self.comics_random_button_4.setFlat(True)
 
@@ -2628,7 +2352,7 @@ class Ui_main_widget(object):
         self.comics_random_button_5 = QPushButton(self.movies_ended_6)
         self.comics_random_button_5.setObjectName(u"comics_random_button_5")
         self.comics_random_button_5.setAutoFillBackground(False)
-        self.comics_random_button_5.setIcon(icon14)
+        self.comics_random_button_5.setIcon(icon3)
         self.comics_random_button_5.setIconSize(QSize(50, 30))
         self.comics_random_button_5.setFlat(True)
 
@@ -2690,7 +2414,7 @@ class Ui_main_widget(object):
 
         self.label_6 = QLabel(self.setting_section)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font1)
+        self.label_6.setFont(font)
 
         self.gridLayout_8.addWidget(self.label_6, 0, 0, 1, 2)
 
@@ -2700,6 +2424,289 @@ class Ui_main_widget(object):
 
 
         self.gridLayout.addWidget(self.main_body_widget, 0, 1, 1, 1)
+
+        self.side_widget = QWidget(main_widget)
+        self.side_widget.setObjectName(u"side_widget")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.side_widget.sizePolicy().hasHeightForWidth())
+        self.side_widget.setSizePolicy(sizePolicy3)
+        self.side_widget.setStyleSheet(u"/* Sidebar Container */\n"
+"QWidget {\n"
+"    background-color:#2b3640;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"/* Navigation Buttons */\n"
+"QPushButton {\n"
+"    background-color: transparent;\n"
+"    color: white;\n"
+"    text-align: left;\n"
+"    border: none;\n"
+"    padding:6px 50px 5px 20px;\n"
+"    font-size: 14px;\n"
+"    font-weight: normal;\n"
+"    margin: 0px 0px;\n"
+"    border-radius: 6px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(65, 65, 65);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: rgb(75, 75, 75);\n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"    background-color: white;\n"
+"    color: black;\n"
+"    border-top-left-radius: 10px;\n"
+"    border-bottom-left-radius: 10px;\n"
+"    border-top-right-radius: 0px;\n"
+"    border-bottom-right-radius: 0px;\n"
+"    font-weight: bold;\n"
+"}\n"
+"\n"
+"/* Section Headers/Labels */\n"
+"QLabel {\n"
+"    color: rgb(255, 255, 255);\n"
+"    font-size: 15px;\n"
+"    font-weight: bold;\n"
+"    text-transform: normal;\n"
+"    pad"
+                        "ding: 8px 0px ;\n"
+"    margin-top: 8px;\n"
+"}\n"
+"\n"
+"/* Icon Labels (if you're using QLabel for icons) */\n"
+"QLabel#iconLabel {\n"
+"    color: white;\n"
+"    font-size: 16px;\n"
+"    padding: 0px;\n"
+"    margin: 0px;\n"
+"}\n"
+"\n"
+"/* Separator Line */\n"
+"Line {\n"
+"    background-color: rgb(70, 70, 70);\n"
+"    border: none;\n"
+"    max-height: 1px;\n"
+"    min-height: 1px;\n"
+"	margin: 0px 12px;\n"
+"}\n"
+"")
+        self.verticalLayout = QVBoxLayout(self.side_widget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(9, 9, 0, 9)
+        self.line_3 = QFrame(self.side_widget)
+        self.line_3.setObjectName(u"line_3")
+        self.line_3.setFrameShape(QFrame.Shape.HLine)
+        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout.addWidget(self.line_3)
+
+        self.account_layout = QHBoxLayout()
+        self.account_layout.setObjectName(u"account_layout")
+        self.account_layout.setContentsMargins(0, 0, 0, -1)
+        self.name_lable = QLabel(self.side_widget)
+        self.name_lable.setObjectName(u"name_lable")
+
+        self.account_layout.addWidget(self.name_lable)
+
+        self.photo_lable = QLabel(self.side_widget)
+        self.photo_lable.setObjectName(u"photo_lable")
+
+        self.account_layout.addWidget(self.photo_lable)
+
+
+        self.verticalLayout.addLayout(self.account_layout)
+
+        self.label_4 = QLabel(self.side_widget)
+        self.label_4.setObjectName(u"label_4")
+        font2 = QFont()
+        font2.setBold(True)
+        self.label_4.setFont(font2)
+
+        self.verticalLayout.addWidget(self.label_4)
+
+        self.show_movies = QPushButton(self.side_widget)
+        self.show_movies.setObjectName(u"show_movies")
+        sizePolicy1.setHeightForWidth(self.show_movies.sizePolicy().hasHeightForWidth())
+        self.show_movies.setSizePolicy(sizePolicy1)
+        self.show_movies.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.show_movies.setAutoFillBackground(False)
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/Icons/film 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon5.addFile(u":/icons/Icons/film.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_movies.setIcon(icon5)
+        self.show_movies.setIconSize(QSize(23, 23))
+        self.show_movies.setCheckable(True)
+        self.show_movies.setAutoExclusive(True)
+        self.show_movies.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_movies)
+
+        self.show_series = QPushButton(self.side_widget)
+        self.show_series.setObjectName(u"show_series")
+        sizePolicy1.setHeightForWidth(self.show_series.sizePolicy().hasHeightForWidth())
+        self.show_series.setSizePolicy(sizePolicy1)
+        icon6 = QIcon()
+        icon6.addFile(u":/icons/Icons/watching 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon6.addFile(u":/icons/Icons/watching.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_series.setIcon(icon6)
+        self.show_series.setIconSize(QSize(25, 25))
+        self.show_series.setCheckable(True)
+        self.show_series.setAutoExclusive(True)
+        self.show_series.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_series)
+
+        self.show_games = QPushButton(self.side_widget)
+        self.show_games.setObjectName(u"show_games")
+        sizePolicy1.setHeightForWidth(self.show_games.sizePolicy().hasHeightForWidth())
+        self.show_games.setSizePolicy(sizePolicy1)
+        icon7 = QIcon()
+        icon7.addFile(u":/icons/Icons/console 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon7.addFile(u":/icons/Icons/console.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_games.setIcon(icon7)
+        self.show_games.setIconSize(QSize(25, 25))
+        self.show_games.setCheckable(True)
+        self.show_games.setAutoExclusive(True)
+        self.show_games.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_games)
+
+        self.show_books = QPushButton(self.side_widget)
+        self.show_books.setObjectName(u"show_books")
+        sizePolicy1.setHeightForWidth(self.show_books.sizePolicy().hasHeightForWidth())
+        self.show_books.setSizePolicy(sizePolicy1)
+        icon8 = QIcon()
+        icon8.addFile(u":/icons/Icons/book 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon8.addFile(u":/icons/Icons/book.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_books.setIcon(icon8)
+        self.show_books.setIconSize(QSize(25, 25))
+        self.show_books.setCheckable(True)
+        self.show_books.setAutoExclusive(True)
+        self.show_books.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_books)
+
+        self.show_comics = QPushButton(self.side_widget)
+        self.show_comics.setObjectName(u"show_comics")
+        sizePolicy1.setHeightForWidth(self.show_comics.sizePolicy().hasHeightForWidth())
+        self.show_comics.setSizePolicy(sizePolicy1)
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/Icons/comic 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon9.addFile(u":/icons/Icons/comic.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_comics.setIcon(icon9)
+        self.show_comics.setIconSize(QSize(25, 25))
+        self.show_comics.setCheckable(True)
+        self.show_comics.setAutoExclusive(True)
+        self.show_comics.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_comics)
+
+        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout.addItem(self.verticalSpacer_6)
+
+        self.line_4 = QFrame(self.side_widget)
+        self.line_4.setObjectName(u"line_4")
+        self.line_4.setFrameShape(QFrame.Shape.HLine)
+        self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout.addWidget(self.line_4)
+
+        self.label_5 = QLabel(self.side_widget)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setFont(font2)
+        self.label_5.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+
+        self.verticalLayout.addWidget(self.label_5)
+
+        self.show_home = QPushButton(self.side_widget)
+        self.show_home.setObjectName(u"show_home")
+        sizePolicy1.setHeightForWidth(self.show_home.sizePolicy().hasHeightForWidth())
+        self.show_home.setSizePolicy(sizePolicy1)
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/Icons/home 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon10.addFile(u":/icons/Icons/home.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_home.setIcon(icon10)
+        self.show_home.setIconSize(QSize(25, 25))
+        self.show_home.setCheckable(True)
+        self.show_home.setAutoExclusive(True)
+        self.show_home.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_home)
+
+        self.show_profile = QPushButton(self.side_widget)
+        self.show_profile.setObjectName(u"show_profile")
+        sizePolicy1.setHeightForWidth(self.show_profile.sizePolicy().hasHeightForWidth())
+        self.show_profile.setSizePolicy(sizePolicy1)
+        icon11 = QIcon()
+        icon11.addFile(u":/icons/Icons/user 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon11.addFile(u":/icons/Icons/user.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_profile.setIcon(icon11)
+        self.show_profile.setIconSize(QSize(25, 25))
+        self.show_profile.setCheckable(True)
+        self.show_profile.setAutoExclusive(True)
+        self.show_profile.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_profile)
+
+        self.show_dashboard = QPushButton(self.side_widget)
+        self.show_dashboard.setObjectName(u"show_dashboard")
+        sizePolicy1.setHeightForWidth(self.show_dashboard.sizePolicy().hasHeightForWidth())
+        self.show_dashboard.setSizePolicy(sizePolicy1)
+        icon12 = QIcon()
+        icon12.addFile(u":/icons/Icons/dashboard 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon12.addFile(u":/icons/Icons/dashboard.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        icon12.addFile(u":/icons/Icons/dashboard.png", QSize(), QIcon.Mode.Disabled, QIcon.State.Off)
+        self.show_dashboard.setIcon(icon12)
+        self.show_dashboard.setIconSize(QSize(30, 30))
+        self.show_dashboard.setCheckable(True)
+        self.show_dashboard.setAutoExclusive(True)
+        self.show_dashboard.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_dashboard)
+
+        self.show_setting = QPushButton(self.side_widget)
+        self.show_setting.setObjectName(u"show_setting")
+        sizePolicy1.setHeightForWidth(self.show_setting.sizePolicy().hasHeightForWidth())
+        self.show_setting.setSizePolicy(sizePolicy1)
+        icon13 = QIcon()
+        icon13.addFile(u":/icons/Icons/setting 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon13.addFile(u":/icons/Icons/setting.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.show_setting.setIcon(icon13)
+        self.show_setting.setIconSize(QSize(25, 25))
+        self.show_setting.setCheckable(True)
+        self.show_setting.setAutoExclusive(True)
+        self.show_setting.setFlat(True)
+
+        self.verticalLayout.addWidget(self.show_setting)
+
+        self.verticalSpacer = QSpacerItem(143, 18, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout.addItem(self.verticalSpacer)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_2)
+
+        self.logout = QPushButton(self.side_widget)
+        self.logout.setObjectName(u"logout")
+        icon14 = QIcon()
+        icon14.addFile(u":/icons/Icons/exit 1.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon14.addFile(u":/icons/Icons/exit.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.logout.setIcon(icon14)
+        self.logout.setIconSize(QSize(25, 25))
+
+        self.verticalLayout.addWidget(self.logout)
+
+
+        self.gridLayout.addWidget(self.side_widget, 0, 0, 1, 1)
 
 
         self.retranslateUi(main_widget)
@@ -2723,19 +2730,6 @@ class Ui_main_widget(object):
 
     def retranslateUi(self, main_widget):
         main_widget.setWindowTitle(QCoreApplication.translate("main_widget", u"Form", None))
-        self.pushButton_13.setText(QCoreApplication.translate("main_widget", u"   Ahmed", None))
-        self.label_4.setText(QCoreApplication.translate("main_widget", u"Media", None))
-        self.show_movies.setText(QCoreApplication.translate("main_widget", u"   Movies", None))
-        self.show_series.setText(QCoreApplication.translate("main_widget", u"  TV Series", None))
-        self.show_games.setText(QCoreApplication.translate("main_widget", u"  Games", None))
-        self.show_books.setText(QCoreApplication.translate("main_widget", u"  Books", None))
-        self.show_comics.setText(QCoreApplication.translate("main_widget", u"  Comics", None))
-        self.label_5.setText(QCoreApplication.translate("main_widget", u"Account", None))
-        self.show_home.setText(QCoreApplication.translate("main_widget", u"   Home", None))
-        self.show_profile.setText(QCoreApplication.translate("main_widget", u"   Profile", None))
-        self.show_dashboard.setText(QCoreApplication.translate("main_widget", u"  Dashboard", None))
-        self.show_setting.setText(QCoreApplication.translate("main_widget", u"   Settings", None))
-        self.logout.setText(QCoreApplication.translate("main_widget", u"Logout", None))
         self.label_2.setText(QCoreApplication.translate("main_widget", u"This app is designed to be your perfect library for (movies, series, games, etc.)", None))
         self.label.setText(QCoreApplication.translate("main_widget", u"Welcome, to your libirary", None))
 #if QT_CONFIG(tooltip)
@@ -2989,5 +2983,19 @@ class Ui_main_widget(object):
         self.comics_sort_box_5.setPlaceholderText(QCoreApplication.translate("main_widget", u"Sort by", None))
         self.comics_tap_widget.setTabText(self.comics_tap_widget.indexOf(self.movies_ended_6), QCoreApplication.translate("main_widget", u"Ended", None))
         self.label_6.setText(QCoreApplication.translate("main_widget", u"Setting", None))
+        self.name_lable.setText("")
+        self.photo_lable.setText("")
+        self.label_4.setText(QCoreApplication.translate("main_widget", u"Media", None))
+        self.show_movies.setText(QCoreApplication.translate("main_widget", u"   Movies", None))
+        self.show_series.setText(QCoreApplication.translate("main_widget", u"  TV Series", None))
+        self.show_games.setText(QCoreApplication.translate("main_widget", u"  Games", None))
+        self.show_books.setText(QCoreApplication.translate("main_widget", u"  Books", None))
+        self.show_comics.setText(QCoreApplication.translate("main_widget", u"  Comics", None))
+        self.label_5.setText(QCoreApplication.translate("main_widget", u"Account", None))
+        self.show_home.setText(QCoreApplication.translate("main_widget", u"   Home", None))
+        self.show_profile.setText(QCoreApplication.translate("main_widget", u"   Profile", None))
+        self.show_dashboard.setText(QCoreApplication.translate("main_widget", u"  Dashboard", None))
+        self.show_setting.setText(QCoreApplication.translate("main_widget", u"   Settings", None))
+        self.logout.setText(QCoreApplication.translate("main_widget", u"Logout", None))
     # retranslateUi
 

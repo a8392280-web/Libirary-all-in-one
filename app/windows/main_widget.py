@@ -5,10 +5,10 @@ from py_ui.main_ui import Ui_main_widget
 from app.windows.movies_show_widget import ShowMovieWindow
 from app.windows.movies_add_widget import AddMovieWindow
 from app.controllers.list_widget import MovieListLoader
-
-# from app.dialogs.movies_show_widget import ShowMovieWindow
-
-
+import json
+import requests
+from PySide6.QtGui import QPixmap,QPainter,QPainterPath
+from io import BytesIO
 
 class Widget(QWidget):
     
@@ -32,6 +32,10 @@ class Widget(QWidget):
 
         self.ui.movies_view_1.toggled.connect(lambda checked: self.view_mode_changed.emit("list" if checked else "grid"))
 
+        with open("log", "r", encoding="utf-8") as f:
+            user_info = json.loads(f.read())
+            self.set_profile_pic(self.ui.name_lable, user_info.get("profile_pic"))
+            self.ui.photo_lable.setText(user_info.get("name", "Guest")) 
 
         # section with its content
         self.sections = {
@@ -230,7 +234,7 @@ class Widget(QWidget):
         movie = item.data(Qt.UserRole)  # This returns a Movie object
         if movie and hasattr(movie, 'id'):
             self.selected_id = movie.id  # Get the actual ID from the Movie object
-            self.show_movie_window = ShowMovieWindow(section=section, id=self.selected_id)
+            self.show_movie_window = ShowMovieWindow(section=section, movie_id=self.selected_id)
             
             # Connect the refresh signals
             self.show_movie_window.movie_deleted.connect(self.refresh_all_sections)
@@ -374,9 +378,41 @@ class Widget(QWidget):
 
 
 
+    def set_profile_pic(self,label, url, size=50, radius=20):
+        if not url:
+            return
+        
+        try:
+            # Download image
+            response = requests.get(url, timeout=5)
+            response.raise_for_status()
 
+            pixmap = QPixmap()
+            pixmap.loadFromData(response.content)
 
+            # Resize to a fixed size (square)
+            pixmap = pixmap.scaled(size, size, Qt.KeepAspectRatioByExpanding, Qt.SmoothTransformation)
 
+            # Create rounded mask
+            rounded = QPixmap(size, size)
+            rounded.fill(Qt.transparent)
+
+            painter = QPainter(rounded)
+            painter.setRenderHint(QPainter.Antialiasing)
+
+            path = QPainterPath()
+            path.addRoundedRect(0, 0, size, size, radius, radius)
+            painter.setClipPath(path)
+
+            painter.drawPixmap(0, 0, pixmap)
+            painter.end()
+
+            # Set to QLabel
+            label.setPixmap(rounded)
+            label.setScaledContents(True)
+
+        except Exception as e:
+            print("Could not load profile picture:", e)
 
 
 

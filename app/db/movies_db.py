@@ -18,6 +18,7 @@ def movie_to_tuple(movie: Movie):
         json.dumps(movie.genres) if movie.genres else None,
         movie.plot,
         movie.imdb_id,
+        movie.tmdb_id,
         movie.last_update,
         movie.section,
         movie.trailer
@@ -37,6 +38,7 @@ def row_to_movie(row):
         genres=json.loads(row["genres"]) if row["genres"] else [],
         plot=row["plot"],
         imdb_id=row["imdb_id"],
+        tmdb_id=row["tmdb_id"],
         last_update=row["last_update"],
         section=row["section"],
         trailer=row["trailer"]
@@ -54,9 +56,9 @@ def insert_movie(movie: Movie):
             """
             INSERT INTO movies (
                 title, year, rating, user_rating, runtime,
-                poster_path, genres, plot, imdb_id, last_update, section, trailer
+                poster_path, genres, plot, imdb_id, tmdb_id, last_update, section, trailer
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             movie_to_tuple(movie)
         )
@@ -84,6 +86,7 @@ def update_movie(movie: Movie):
                 genres = ?,
                 plot = ?,
                 imdb_id = ?,
+                tmdb_id = ?,
                 last_update = ?,
                 section = ?,
                 trailer = ?
