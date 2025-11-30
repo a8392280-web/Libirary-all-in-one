@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>Icons/metascore.png</file>
+    <file>Icons/rotten tomatoes.png</file>
+    <file>Icons/tmdb.png</file>
     <file>Icons/trailer.png</file>
     <file>Icons/download.png</file>
     <file>Icons/watch.png</file>

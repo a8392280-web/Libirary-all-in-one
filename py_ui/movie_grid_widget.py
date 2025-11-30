@@ -66,7 +66,7 @@ class MovieGridItemWidget(QFrame):
         info_layout.setSpacing(8)
 
         # Rating - left aligned
-        rating_label = QLabel(f"⭐ {m.rating if m.rating else 'N/A'}")
+        rating_label = QLabel(f"⭐ {m.imdb_rating if m.imdb_rating else 'N/A'}")
         rating_label.setAlignment(Qt.AlignLeft)
         rating_label.setStyleSheet("""
             QLabel {

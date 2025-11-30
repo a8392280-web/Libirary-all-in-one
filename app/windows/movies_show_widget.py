@@ -2,21 +2,20 @@
 import logging
 from typing import Optional, Dict, Any, Tuple
 
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Qt, Signal, QThread
 from PySide6.QtGui import QCursor, QPixmap, QColor, QPainter, QKeySequence,QShortcut
 from PySide6.QtWidgets import (
-    QDialog, QMessageBox, QComboBox, QLabel
+    QDialog, QMessageBox, QComboBox, QLabel, QWidget, QVBoxLayout
 )
-
 from py_ui.movies_show import Ui_show
 from app.db.movies_db import get_movie_by_id, update_movie, delete_movie, move_movie_section
 from app.utils.my_functions import link_to_image, get_selected_section, resize_combo_box_to_contents
 from app.fetch.movies_info_fetcher import ArabSeedScraper, AkwamScraper
 from app.models.movie import Movie
 
+
 logger = logging.getLogger(__name__)
 
-from PySide6.QtCore import QThread, Signal
 
 class WatchLinkWorker(QThread):
     finished = Signal(str)  # the URL or None
@@ -76,7 +75,7 @@ class ShowMovieWindow(QDialog):
             "year": self.ui.show_edit_date_line,
             "genres": self.ui.show_edit_gener_line,
             "plot": self.ui.show_edit_plot_line,
-            "rating": self.ui.show_edit_imdb_rate_line,
+            "imdb_rating": self.ui.show_edit_imdb_rate_line,
             "user_rating": self.ui.show_edit_user_rate_line,
             "image_url": self.ui.show_edit_image_url,
         }
@@ -187,8 +186,20 @@ class ShowMovieWindow(QDialog):
         self.ui.show_time_lable.setText(f"{movie.runtime} min" if movie.runtime else "Runtime not available")
         self.ui.show_label.setText(str(movie.year) if movie.year else "Year not available")
         self.ui.show_gener_lable.setText(", ".join(movie.genres) if movie.genres else "No genres")
-        self.ui.show_imdb_rate_lable.setText(str(movie.rating) if movie.rating else "No rating")
+        self.ui.show_imdb_rate_lable.setText(str(movie.imdb_rating) if movie.imdb_rating else "No rating")
         self.ui.show_user_rate_lable.setText(str(movie.user_rating) if movie.user_rating else "No user rating")
+        self.ui.imdb_votes.setText(str(movie.imdb_votes) if movie.imdb_votes else "No votes")
+        self.ui.tmdb_rate.setText(str(movie.tmdb_rating) if movie.tmdb_rating else "No rating")
+        self.ui.tmdb_votes.setText(str(movie.tmdb_votes) if movie.tmdb_votes else "No votes")
+        self.ui.rotten_tomatos_rate.setText(str(movie.rotten_tomatoes) if movie.rotten_tomatoes else "No  rating")
+        self.ui.metascore_rate.setText(str(movie.metascore) if movie.metascore else "No score")
+        self.display_cast(self.ui.cast_layout,movie.cast,self._load_image_safe)
+
+        
+        name, url = movie.director.split(", ", 1)
+        self._load_image_safe(url, self.ui.director_label)
+        self.ui.director_name.setText(str(name) if name else "Director Name Unknown")
+
 
         # plot and trailer: set tooltip and pointer style
         self.ui.plot_widget.setToolTip("Click to see full plot")
@@ -241,7 +252,7 @@ class ShowMovieWindow(QDialog):
         self.edit_widget_map["year"].setText(str(m.year) if m.year is not None else "")
         self.edit_widget_map["genres"].setText(", ".join(m.genres) if m.genres else "")
         self.edit_widget_map["plot"].setText(m.plot or "")
-        self.edit_widget_map["rating"].setText(str(m.rating) if m.rating is not None else "")
+        self.edit_widget_map["imdb_rating"].setText(str(m.imdb_rating) if m.imdb_rating is not None else "")
         self.edit_widget_map["user_rating"].setText(str(m.user_rating) if m.user_rating is not None else "")
         self.edit_widget_map["image_url"].setText(m.poster_path or "")
 
@@ -268,7 +279,7 @@ class ShowMovieWindow(QDialog):
             "year": self.edit_widget_map["year"].text().strip(),
             "genres": [g.strip() for g in self.edit_widget_map["genres"].text().split(",") if g.strip()],
             "plot": self.edit_widget_map["plot"].text().strip(),
-            "rating": self.edit_widget_map["rating"].text().strip(),
+            "imdb_rating": self.edit_widget_map["imdb_rating"].text().strip(),
             "user_rating": self.edit_widget_map["user_rating"].text().strip(),
             "image_url": self.edit_widget_map["image_url"].text().strip(),
         }
@@ -291,7 +302,7 @@ class ShowMovieWindow(QDialog):
             if not (data["year"].isdigit() and len(data["year"]) == 4):
                 return False, "Year must be a 4-digit number (e.g., 2024)."
 
-        for key in ("rating", "user_rating"):
+        for key in ("imdb_rating", "user_rating"):
             if data[key]:
                 try:
                     val = float(data[key])
@@ -342,13 +353,13 @@ class ShowMovieWindow(QDialog):
         if data["plot"] != (m.plot or ""):
             m.plot = data["plot"]; changed = True
 
-        if data["rating"]:
-            new_rating = float(data["rating"])
-            if new_rating != (m.rating or 0.0):
-                m.rating = new_rating; changed = True
+        if data["imdb_rating"]:
+            new_rating = float(data["imdb_rating"])
+            if new_rating != (m.imdb_rating or 0.0):
+                m.imdb_rating = new_rating; changed = True
         else:
-            if m.rating is not None:
-                m.rating = None; changed = True
+            if m.imdb_rating is not None:
+                m.imdb_rating = None; changed = True
 
         if data["user_rating"]:
             new_user_rating = float(data["user_rating"])
@@ -448,6 +459,7 @@ class ShowMovieWindow(QDialog):
         self._load_image_safe(url, self.ui.show_edit_image_label)
         
     def open_watch_link(self, button: int):
+        """ for find tag links"""
         if not self.movie or not self.movie.title:
             QMessageBox.information(self, "Movie", "Movie title not available.")
             return
@@ -473,347 +485,56 @@ class ShowMovieWindow(QDialog):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-# from PySide6.QtCore import Qt,Signal
-# from PySide6.QtGui import QCursor, QPixmap
-# from py_ui.movies_show import Ui_show
-# from PySide6.QtWidgets import QDialog , QMessageBox, QComboBox , QScrollArea,QVBoxLayout,QWidget,QLabel,QGroupBox,QHBoxLayout
-# from app.db.movies_db import get_movie_by_id, update_movie, delete_movie, move_movie_section
-# from app.utils.my_functions import link_to_image , get_selected_section,resize_combo_box_to_contents
-# from app.fetch.movies_info_fetcher import update_imdb_info_if_old
-# import webbrowser
-# from app.fetch.movies_info_fetcher import ArabSeedScraper, AkwamScraper
-# class ClickableLabel(QLabel):
-#     clicked = Signal()
-
-#     def mousePressEvent(self, event):
-#         self.clicked.emit()
-#         super().mousePressEvent(event)
-
-
-# class ShowMovieWindow(QDialog): # Inherit from QDialog for modal behavior
-#     movie_deleted = Signal()
-#     movie_moved = Signal()
-
-
-#     def __init__(self,section,id, parent=None): # Optional parent parameter
-#         super().__init__(parent) # Call the parent constructor
-
-#         self.ui = Ui_show() # Create an instance of the UI class
-#         self.ui.setupUi(self) # Set up the UI
-#         self.setWindowTitle("Movie Details")
-
-
-#         self.section = section 
-#         self.id = id
-#         self.movie = None
-
-#         self.show_info()
-
-#         self.ui.show_edit_image_url.returnPressed.connect(self.preview_or_restore_image) # Preview or restore image when Enter is pressed
-
-#         #------------------------- Setup widget -----------------------------
-
-#         self.ui.stackedWidget.setCurrentIndex(0) # Show the first page by default
-        
-
-#         #------------------------- Setup Buttons -----------------------------
-
-#         self.ui.show_delete_button.clicked.connect(self.delete_current_movie)
-#         self.ui.show_delete_button.setShortcut("del")
-
-#         self.ui.show_edit_button.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
-#         self.ui.show_edit_button.clicked.connect(self.edit)
-#         self.ui.show_edit_button.setShortcut("e")
-
-#         self.ui.show_cancel_button.clicked.connect(self.close)
-#         self.ui.show_apply_button.clicked.connect(self.move_to)     
-#         self.ui.show_edit_apply_button.clicked.connect(self.apply_edit)
-         
-#         self.ui.show_edit_cancel_button.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0)) 
-#         # This would not work, because setCurrentIndex expects an argument, but the clicked signal doesn't provide one.so we use lambda.
-
-#         self.ui.wahtch_button_1.setText("Watch on Akwam")
-#         self.ui.wahtch_button_2.setText("Watch on ArabSeed")
-#         self.ui.wahtch_button_2.clicked.connect(lambda: self.show_watch_page(2))
-#         self.ui.wahtch_button_1.clicked.connect(lambda: self.show_watch_page(1))
-
-#         #----------------------Setup combobox(move_to) ------------------------
-
-#         # make the long text in the combobox seen
-#         self.ui.move_to_combobox.showPopup = lambda: (resize_combo_box_to_contents(self.ui.move_to_combobox),
-#                                                       QComboBox.showPopup(self.ui.move_to_combobox))
-#         self.comboBox(section)
-
-
-#     # Slotss:-
-#     def move_to(self):
-#         "Move selected movie to another section"
-#         try:
-#             if self.ui.move_to_combobox.currentIndex() != -1: 
-#                 new_section = get_selected_section(self.ui.move_to_combobox)
-#                 success = move_movie_section(self.id, new_section)
-#                 if success:
-#                     self.movie_moved.emit()  # Emit signal
-#                     print(f"✅ Movie moved to {new_section}")
-#                 else:
-#                     print("❌ Failed to move movie")
-#                 self.close()
-
-#         except Exception as e:
-#             print("Error while moving movie:", e)
-#             QMessageBox.critical(self, "Error", f"Failed to move movie: {str(e)}")
-
-
-
-#     def comboBox(self, except_section):
-#         "Fill combobox with all sections except the given one"
-#         sections = ["watching", "want_to_watch", "continue_later", "dont_want_to_continue", "watched"]
-#         for section in sections:
-#             if section == except_section:
-#                 continue
-#             else:
-#                 self.ui.move_to_combobox.addItem(section.replace("_"," ").capitalize())
-
-
-#     def get_info(self):
-#         "Get movie info by its ID"
-#         if not self.movie:
-#             self.movie = get_movie_by_id(self.id)
-#         return self.movie
-
-
-#     def show_plot(self, event):
-#         "Show movie plot in a message box"
-#         movie = self.get_info()
-#         if movie and movie.plot:
-#             QMessageBox.information(self, "Movie Plot", movie.plot)
-#         else:
-#             QMessageBox.information(self, "Movie Plot", "No description available.")
-
-#     def show_trailer(self, event):
-#         "Show movie trailer in the browser"
-#         movie = self.get_info()
-#         if movie and movie.trailer:
-
-#             webbrowser.open(movie.trailer)
-#         else:
-#             QMessageBox.information(self, "Movie trailers", "No trailer available.")
-
-#     def show_watch_page(self,button):
-#         "Show watch page in the browser"
-#         movie = self.get_info()
-#         if movie.title:
-#             if button == 2:
-#                 scraper = ArabSeedScraper(f"{movie.title} {movie.year}")
-#                 url = scraper.watch_url
-
-#             elif button == 1:
-#                 scraper = AkwamScraper(f"{movie.title}", movie.year)
-#                 url = scraper.watch_url
-
-#             else:
-#                 url = None
-#         if url:
-#             webbrowser.open(url)
-#         else:
-#             QMessageBox.information(self, "Movie", "No Match found.")
-
-
-
-#     def show_info(self):
-#         "Display movie info and poster in the UI"
-#         movie = self.get_info()
-#         if not movie:
-#             QMessageBox.critical(self, "Error", "Movie not found!")
-#             self.close()
-#             return
-
-#         print(f"DEBUG: Movie data - Title: {movie.title}, Year: {movie.year}")  # Debug
-
-#         # Set movie data to labels
-#         self.ui.show_name_lable.setText(movie.title or "No title")
-#         self.ui.show_time_lable.setText(f"{movie.runtime} min" if movie.runtime else "Runtime not available")
-#         self.ui.show_label.setText(str(movie.year) if movie.year else "Year not available")
-#         self.ui.show_gener_lable.setText(", ".join(movie.genres) if movie.genres else "No genres")
-#         self.original_image_url = movie.poster_path or ""
-
-#         self.ui.show_imdb_rate_lable.setText(str(movie.rating) if movie.rating else "No rating")
-#         self.ui.show_user_rate_lable.setText(str(movie.user_rating) if movie.user_rating else "No user rating")
-
-#         # Setup plot label
-#         self.ui.plot_widget.setToolTip("Click to see full plot")
-#         self.ui.plot_widget.setCursor(QCursor(Qt.PointingHandCursor))
-#         self.ui.plot_widget.mousePressEvent = self.show_plot
-#         # Setup  trailer lable
-#         self.ui.trailer_widget.setToolTip("Click to open trailer")
-#         self.ui.trailer_widget.setCursor(QCursor(Qt.PointingHandCursor))
-#         self.ui.trailer_widget.mousePressEvent = self.show_trailer
-
-
-#         # Load image
-#         if movie.poster_path:
-#             link_to_image(path=movie.poster_path, label=self.ui.show_image_lable, x=180, y=270)
-#         else:
-#             self.ui.show_image_lable.setText("No Image Available")
-#             self.ui.show_image_lable.setAlignment(Qt.AlignCenter)
-#             self.ui.show_image_lable.setStyleSheet("color: gray;")
-
-
-
-
-#     def delete_current_movie(self):
-#         """Ask for confirmation, delete the movie, and close the window."""
-#         reply = QMessageBox.question(
-#             self,
-#             "Confirm Delete",
-#             "Are you sure you want to delete this movie?",
-#             QMessageBox.Yes | QMessageBox.No
-#         )
-
-#         if reply == QMessageBox.Yes:
-#             success = delete_movie(self.id)
-#             if success:
-#                 self.close()
-#                 self.movie_deleted.emit()  # Emit signal
-#                 QMessageBox.information(self, "Deleted", "Movie deleted successfully.")
-                
-#             else:
-#                 QMessageBox.warning(self, "Error", "Failed to delete movie.")
-    
-#     def edit(self):
-#         "Load movie data into edit fields and display its poster"
-#         movie = self.get_info()
-#         if not movie:
-#             return
-
-#         self.ui.show_edit_name_line.setText(movie.title or "")
-#         self.ui.show_edit_time_line.setText(str(movie.runtime) if movie.runtime else "")
-#         self.ui.show_edit_date_line.setText(str(movie.year) if movie.year else "")
-#         self.ui.show_edit_gener_line.setText(", ".join(movie.genres) if movie.genres else "")
-
-#         self.ui.show_edit_plot_line.setText(movie.plot or "")
-
-#         self.ui.show_edit_imdb_rate_line.setText(str(movie.rating) if movie.rating else "")
-#         self.ui.show_edit_user_rate_line.setText(str(movie.user_rating) if movie.user_rating else "")
-
-#         if movie.poster_path:
-#             link_to_image(path=movie.poster_path, label=self.ui.show_edit_image_label, x=180, y=270)
-#         else:
-#             self.ui.show_edit_image_label.setText("No Image")
-#             self.ui.show_edit_image_label.setAlignment(Qt.AlignCenter)
-             
-#     def apply_edit(self):
-#         """Apply changes to the movie in database"""
-#         movie = self.get_info()
-#         if not movie:
-#             QMessageBox.critical(self, "Error", "Movie not found!")
-#             return
-
-#         # Collect the new data from UI
-#         new_title = self.ui.show_edit_name_line.text().strip()
-#         new_runtime = self.ui.show_edit_time_line.text().strip()
-#         new_year = self.ui.show_edit_date_line.text().strip()
-#         new_plot = self.ui.show_edit_plot_line.text().strip()
-#         new_rating = self.ui.show_edit_imdb_rate_line.text().strip()
-#         new_user_rating = self.ui.show_edit_user_rate_line.text().strip()
-#         new_genres = [g.strip() for g in self.ui.show_edit_gener_line.text().split(",") if g.strip()]
-#         new_image_path = self.ui.show_edit_image_url.text().strip()
-
-#         # Update movie object
-#         changed = False
-
-#         if new_title != movie.title:
-#             movie.title = new_title
-#             changed = True
-
-#         if new_runtime and new_runtime != str(movie.runtime or ""):
-#             try:
-#                 movie.runtime = int(new_runtime)
-#                 changed = True
-#             except ValueError:
-#                 QMessageBox.warning(self, "Invalid Runtime", "Runtime must be a number")
-#                 return
-
-#         if new_year and new_year != str(movie.year or ""):
-#             try:
-#                 movie.year = int(new_year)
-#                 changed = True
-#             except ValueError:
-#                 QMessageBox.warning(self, "Invalid Year", "Year must be a number")
-#                 return
-
-#         if new_plot != (movie.plot or ""):
-#             movie.plot = new_plot
-#             changed = True
-
-#         if new_rating and new_rating != str(movie.rating or ""):
-#             try:
-#                 movie.rating = float(new_rating)
-#                 changed = True
-#             except ValueError:
-#                 QMessageBox.warning(self, "Invalid Rating", "IMDB Rating must be a number")
-#                 return
-
-#         if new_user_rating and new_user_rating != str(movie.user_rating or ""):
-#             try:
-#                 movie.user_rating = float(new_user_rating)
-#                 changed = True
-#             except ValueError:
-#                 QMessageBox.warning(self, "Invalid Rating", "User Rating must be a number")
-#                 return
-
-#         if new_genres != (movie.genres or []):
-#             movie.genres = new_genres
-#             changed = True
-
-#         if new_image_path and new_image_path != (movie.poster_path or ""):
-#             movie.poster_path = new_image_path
-#             changed = True
-
-#         # Save only if something changed
-#         if changed:
-#             try:
-#                 update_movie(movie)
-#                 self.movie = movie  # Update cached movie
-#                 self.show_info()  # Refresh display
-#                 QMessageBox.information(self, "Success", "Movie updated successfully!")
-#             except Exception as e:
-#                 QMessageBox.critical(self, "Error", f"Failed to update movie: {str(e)}")
-#         else:
-#             QMessageBox.information(self, "No Changes", "No changes were made.")
-
-#         self.ui.stackedWidget.setCurrentIndex(0)
-
-
-#     def preview_or_restore_image(self):
-#         """Preview new image on Enter, or restore old one if field empty."""
-#         url = self.ui.show_edit_image_url.text().strip()
-#         label = self.ui.show_edit_image_label
-
-#         # If the field is empty → restore the old poster
-#         if not url:
-#             movie = self.get_info()
-#             if movie and movie.poster_path:
-#                 link_to_image(movie.poster_path, label, 180, 270)
-#             else:
-#                 label.setText("No Image")
-#                 label.setAlignment(Qt.AlignCenter)
-#                 label.setStyleSheet("color: gray;")
-#             return
-
-#         # Try to load the new image as preview
-#         label.setText("Loading preview...")
-#         label.setAlignment(Qt.AlignCenter)
-#         link_to_image(url, label, 180, 270)
+    def display_cast(self, cast_layout, cast_list, load_image_safe_func):
+        """
+        for the cast:-
+        Populate a QHBoxLayout with cast members in a visually appealing way.
+        """
+        # Clear previous widgets
+        while cast_layout.count():
+            item = cast_layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+
+        for actor in cast_list:
+            actor_widget = QWidget()
+            actor_widget.setStyleSheet("""
+                QWidget {
+                    background-color: #1f2733;
+                    border-radius: 8px;
+                    padding: 5px;
+                }
+            """)
+            actor_widget.setFixedWidth(140)
+
+            v_layout = QVBoxLayout(actor_widget)
+            v_layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+            v_layout.setContentsMargins(5,5,5,5)
+            v_layout.setSpacing(5)
+
+            # Image
+            img_label = QLabel()
+            img_label.setFixedSize(120, 180)
+            img_label.setStyleSheet("border-radius: 6px;")
+            load_image_safe_func(actor.get("profile"), img_label, width=120, height=180)
+
+            # Name
+            name_label = QLabel(actor.get("name", "Unknown"))
+            name_label.setAlignment(Qt.AlignCenter)
+            name_label.setWordWrap(True)
+            name_label.setStyleSheet("font-weight: bold; font-size: 12px; color: #fff;")
+
+            # Character
+            char_label = QLabel(actor.get("character", ""))
+            char_label.setAlignment(Qt.AlignCenter)
+            char_label.setWordWrap(True)
+            char_label.setStyleSheet("font-size: 11px; color: #ccc;")
+
+            v_layout.addWidget(img_label)
+            v_layout.addWidget(name_label)
+            v_layout.addWidget(char_label)
+
+            cast_layout.addWidget(actor_widget)
+
+        cast_layout.addStretch()
 

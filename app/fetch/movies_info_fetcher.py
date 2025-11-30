@@ -96,7 +96,7 @@ def get_movie_info(title_name):
         
         for crew in details.get("credits", {}).get("crew", []):
             if crew.get("job") == "Director":
-                director = crew["name"]
+                director = f"{crew["name"]}, https://image.tmdb.org/t/p/w500{crew["profile_path"]}"
             if crew.get("job") in ["Writer", "Screenplay", "Author"]:
                 if crew["name"] not in writers:  # Avoid duplicates
                     writers.append(crew["name"])
@@ -110,7 +110,7 @@ def get_movie_info(title_name):
         
         # 5. GET CAST (TOP 15)
         cast = []
-        for actor in details.get("credits", {}).get("cast", [])[:15]:
+        for actor in details.get("credits", {}).get("cast", [])[:10]:
             cast.append({
                 "name": actor["name"],
                 "character": actor.get("character", ""),
@@ -210,24 +210,24 @@ def get_movie_info(title_name):
         countries = [country["name"] for country in details.get("production_countries", [])]
         companies = [company["name"] for company in details.get("production_companies", [])]
         result = {
-            "Source": "Movie",
+            "source": "Movie",
             
             # BASIC DATA
-            "Name": details.get("title"),
+            "name": details.get("title"),
             # "OriginalName": details.get("original_title"),
             # "Tagline": details.get("tagline"),
-            "Released": year,
+            "year": year,
             # "ReleaseDate": details.get("release_date"),
             # "Status": details.get("status"),
-            "Runtime": details.get("runtime"),
+            "runtime": details.get("runtime"),
             
             # RATINGS
-            # "tmdb_rating": round(details.get("vote_average", 0), 1),
-            # "tmdb_votes": details.get("vote_count"),
-            "Rating": imdb_rating,
+            "tmdb_rating": round(details.get("vote_average", 0), 1),
+            "tmdb_votes": details.get("vote_count"),
+            "imdb_rating": imdb_rating,
             "imdb_votes": imdb_votes,
-            # "rotten_tomatoes": rotten_tomatoes,
-            # "metascore": metascore,
+            "rotten_tomatoes": rotten_tomatoes,
+            "metascore": metascore,
             # "rated": rated,
             
             # IDs
@@ -235,17 +235,17 @@ def get_movie_info(title_name):
             "imdb_id": imdb_id,
             
             # POSTERS & IMAGES
-            "Image": f"https://image.tmdb.org/t/p/w500{details.get('poster_path')}" if details.get("poster_path") else None,
+            "image": f"https://image.tmdb.org/t/p/w500{details.get('poster_path')}" if details.get("poster_path") else None,
             #"Backdrop": f"https://image.tmdb.org/t/p/original{details.get('backdrop_path')}" if details.get("backdrop_path") else None,
             
             # PLOT
-            "Plot": details.get("overview"),
+            "plot": details.get("overview"),
             
             # TRAILER
             "trailer": trailer,
             
             # GENRES
-            "Genres": [g["name"] for g in details.get("genres", [])],
+            "genres": [g["name"] for g in details.get("genres", [])],
             
             # # LANGUAGE / COUNTRY / PRODUCTION
             # "Languages": languages,
@@ -262,11 +262,11 @@ def get_movie_info(title_name):
             # "BoxOffice": box_office,
             
             # # CAST & CREW
-            # "Director": director,
+            "director": director,
             # "Writers": writers,
             # "Producers": producers[:5],  # Top 5 producers
             # "Composers": composers,
-            # "Cast": cast,
+            "cast": cast,
             
             # # RECOMMENDATIONS
             # "Recommendations": recommendations,

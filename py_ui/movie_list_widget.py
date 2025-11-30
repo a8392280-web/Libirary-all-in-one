@@ -87,7 +87,7 @@ class MovieListItemWidget(QWidget):
         #------------------------ Rating-------------------------------
 
         # IMDb-like rating (yellow stars)
-        rating_widget = self.create_rating_widget(m.rating, color="#aca13e",label_text="IMDB:-")
+        rating_widget = self.create_rating_widget(m.imdb_rating, color="#aca13e",label_text="IMDB:-")
 
         # User rating (blue stars)
         user_rating_widget = self.create_rating_widget(m.user_rating, color="#2a418b",label_text="My Rating:-")

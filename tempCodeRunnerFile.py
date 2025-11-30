@@ -1,0 +1,5 @@
+        print("No internet connection. Running in offline mode.")
+        app = QtWidgets.QApplication(sys.argv)
+        main_widget = Widget()
+        app.exec()
+        sys.exit()

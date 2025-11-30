@@ -8,7 +8,7 @@ class Movie:
     id: Optional[int] = None             # DB auto-increment ID
     title: str = ""                      # Movie title
     year: Optional[int] = None           # Release year
-    rating: Optional[float] = None       # IMDb or external rating
+    imdb_rating: Optional[float] = None  # IMDb or external rating
     user_rating: Optional[float] = None  # Personal rating
     runtime: Optional[int] = None        # Runtime in minutes
     poster_path: Optional[str] = None    # Online path to poster
@@ -19,3 +19,10 @@ class Movie:
     last_update: Optional[str] = None    # Timestamp of last update (string or ISO format)
     section: str = "want to watch"       # # default section
     trailer: Optional[str] = None        # Trailer URL
+    cast: Optional[list[dict]] = None    # movie cast
+    director: Optional[str] = None       # director
+    tmdb_rating: Optional[float] = None  # tmdb_rating
+    tmdb_votes: Optional[int] = None     # tmdb_votes 
+    imdb_votes: Optional[int] = None     # imdb_votes 
+    rotten_tomatoes: Optional[str] =None # rotten_tomatoes 
+    metascore: Optional[int] = None      # metascore 

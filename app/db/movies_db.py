@@ -11,17 +11,33 @@ def movie_to_tuple(movie: Movie):
     return (
         movie.title,
         movie.year,
-        movie.rating,
-        movie.user_rating,
         movie.runtime,
-        movie.poster_path,
-        json.dumps(movie.genres) if movie.genres else None,
         movie.plot,
+        movie.poster_path,
+
+        json.dumps(movie.genres) if movie.genres else None,
+
+        # ratings
+        movie.imdb_rating,
+        movie.user_rating,
+        movie.tmdb_rating,
+        movie.tmdb_votes,
+        movie.imdb_votes,
+        movie.rotten_tomatoes,
+        movie.metascore,
+
+        # ids
         movie.imdb_id,
         movie.tmdb_id,
-        movie.last_update,
+
+        # crew & cast
+        movie.director,
+        json.dumps(movie.cast) if movie.cast else None,
+
+        # misc
+        movie.trailer,
         movie.section,
-        movie.trailer
+        movie.last_update,
     )
 
 
@@ -31,17 +47,29 @@ def row_to_movie(row):
         id=row["id"],
         title=row["title"],
         year=row["year"],
-        rating=row["rating"],
-        user_rating=row["user_rating"],
         runtime=row["runtime"],
-        poster_path=row["poster_path"],
-        genres=json.loads(row["genres"]) if row["genres"] else [],
         plot=row["plot"],
+        poster_path=row["poster_path"],
+
+        genres=json.loads(row["genres"]) if row["genres"] else [],
+
+        imdb_rating=row["imdb_rating"],
+        user_rating=row["user_rating"],
+        tmdb_rating=row["tmdb_rating"],
+        tmdb_votes=row["tmdb_votes"],
+        imdb_votes=row["imdb_votes"],
+        rotten_tomatoes=row["rotten_tomatoes"],
+        metascore=row["metascore"],
+
         imdb_id=row["imdb_id"],
         tmdb_id=row["tmdb_id"],
-        last_update=row["last_update"],
+
+        director=row["director"],
+        cast=json.loads(row["cast"]) if row["cast"] else [],
+
+        trailer=row["trailer"],
         section=row["section"],
-        trailer=row["trailer"]
+        last_update=row["last_update"],
     )
 
 
@@ -55,10 +83,14 @@ def insert_movie(movie: Movie):
         cursor.execute(
             """
             INSERT INTO movies (
-                title, year, rating, user_rating, runtime,
-                poster_path, genres, plot, imdb_id, tmdb_id, last_update, section, trailer
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                title, year, runtime, plot, poster_path,
+                genres,
+                imdb_rating, user_rating, tmdb_rating, tmdb_votes,
+                imdb_votes, rotten_tomatoes, metascore,
+                imdb_id, tmdb_id,
+                director, cast,
+                trailer, section, last_update
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             movie_to_tuple(movie)
         )
@@ -76,24 +108,38 @@ def update_movie(movie: Movie):
         cursor = conn.cursor()
         cursor.execute(
             """
-            UPDATE movies
-            SET title = ?,
+            UPDATE movies SET
+                title = ?,
                 year = ?,
-                rating = ?,
-                user_rating = ?,
                 runtime = ?,
-                poster_path = ?,
-                genres = ?,
                 plot = ?,
+                poster_path = ?,
+
+                genres = ?,
+
+                imdb_rating = ?,
+                user_rating = ?,
+                tmdb_rating = ?,
+                tmdb_votes = ?,
+                imdb_votes = ?,
+                rotten_tomatoes = ?,
+                metascore = ?,
+
                 imdb_id = ?,
                 tmdb_id = ?,
-                last_update = ?,
+
+                director = ?,
+                cast = ?,
+
+                trailer = ?,
                 section = ?,
-                trailer = ?
+                last_update = ?
+
             WHERE id = ?
             """,
             movie_to_tuple(movie) + (movie.id,)
         )
+
     return movie
 
 
@@ -124,17 +170,21 @@ def list_movies(section: str, order_by: str = "title", descending: bool = False)
 
     with get_conn() as conn:
         cursor = conn.cursor()
-        query = f"SELECT * FROM movies WHERE section = ? ORDER BY {order_by} {'DESC' if descending else 'ASC'}"
+
+        query = f"""
+        SELECT * FROM movies
+        WHERE section = ?
+        ORDER BY {order_by} {'DESC' if descending else 'ASC'}
+        """
+
         cursor.execute(query, (section,))
         rows = cursor.fetchall()
 
     return [row_to_movie(row) for row in rows]
 
 
-
-
 def move_movie_section(movie_id: int, new_section: str) -> bool:
-    """Move a movie to another section (e.g., watching → watched)."""
+    """Move a movie to another section."""
     with get_conn() as conn:
         cursor = conn.cursor()
         cursor.execute(

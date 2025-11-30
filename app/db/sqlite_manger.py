@@ -7,28 +7,46 @@ from typing import Callable
 # ==========================================================
 # 📘 DATABASE SETUP
 # ==========================================================
-
 SCHEMA = """
 -- ================================
--- MOVIES TABLE
+-- MOVIES TABLE (FULL FEATURED)
 -- ================================
+
 CREATE TABLE IF NOT EXISTS movies (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    -- BASIC INFO
     title TEXT NOT NULL,
     year INTEGER,
-    rating REAL,
-    user_rating REAL,
     runtime INTEGER,
-    poster_path TEXT,
-    genres TEXT,
     plot TEXT,
+    poster_path TEXT,
+    genres TEXT,             
+
+    -- RATINGS
+    imdb_rating REAL,
+    user_rating REAL,
+    tmdb_rating REAL,
+    tmdb_votes INTEGER,
+    imdb_votes INTEGER,
+    rotten_tomatoes TEXT,
+    metascore INTEGER,
+
+    -- IDs
     imdb_id TEXT,
     tmdb_id INTEGER,
-    last_update TEXT,
-    created_at TEXT DEFAULT (datetime('now')),
+
+    -- CREW & CAST
+    director TEXT,
+    cast TEXT,               
+
+    -- MISC
+    trailer TEXT,
     section TEXT DEFAULT 'want to watch',
-    trailer TEXT
+    last_update TEXT,
+    created_at TEXT DEFAULT (datetime('now'))
 );
+
 
 -- ================================
 -- SERIES TABLE
@@ -39,7 +57,7 @@ CREATE TABLE IF NOT EXISTS series (
     year INTEGER,
     total_seasons INTEGER,
     episodes_json TEXT,         -- {"1":10,"2":12,"3":25}
-    rating REAL,
+    imdb_rating REAL,
     user_rating REAL,
     poster_path TEXT,
     genres TEXT,

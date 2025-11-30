@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'movies_show_uiWaIktr.ui'
+## Form generated from reading UI file 'movies_show_uiPakuHk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -209,7 +209,7 @@ class Ui_show(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.info_scrollarea = QWidget()
         self.info_scrollarea.setObjectName(u"info_scrollarea")
-        self.info_scrollarea.setGeometry(QRect(0, 0, 654, 585))
+        self.info_scrollarea.setGeometry(QRect(0, 0, 637, 1201))
         self.gridLayout_7 = QGridLayout(self.info_scrollarea)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.gridLayout_7.setContentsMargins(5, -1, 10, -1)
@@ -276,61 +276,13 @@ class Ui_show(object):
 
         self.gridLayout_8 = QGridLayout()
         self.gridLayout_8.setObjectName(u"gridLayout_8")
-        self.gridLayout_8.setContentsMargins(-1, 0, -1, 10)
-        self.widget_3 = QWidget(self.info_scrollarea)
-        self.widget_3.setObjectName(u"widget_3")
-        self.verticalLayout_2 = QVBoxLayout(self.widget_3)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.label_4 = QLabel(self.widget_3)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setPixmap(QPixmap(u":/icons/Icons/chronometer.png"))
-        self.label_4.setScaledContents(False)
-        self.label_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_2.addWidget(self.label_4)
-
-        self.show_time_lable = QLabel(self.widget_3)
-        self.show_time_lable.setObjectName(u"show_time_lable")
-        self.show_time_lable.setMaximumSize(QSize(16777215, 25))
-        self.show_time_lable.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_2.addWidget(self.show_time_lable)
-
-
-        self.gridLayout_8.addWidget(self.widget_3, 0, 1, 1, 1)
-
-        self.widget = QWidget(self.info_scrollarea)
-        self.widget.setObjectName(u"widget")
-        self.verticalLayout_7 = QVBoxLayout(self.widget)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.label_2 = QLabel(self.widget)
-        self.label_2.setObjectName(u"label_2")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy2)
-        self.label_2.setMaximumSize(QSize(16777215, 16777215))
-        self.label_2.setSizeIncrement(QSize(0, 0))
-        self.label_2.setAutoFillBackground(False)
-        self.label_2.setPixmap(QPixmap(u":/icons/Icons/imdb.png"))
-        self.label_2.setScaledContents(False)
-        self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_7.addWidget(self.label_2)
-
-        self.show_imdb_rate_lable = QLabel(self.widget)
-        self.show_imdb_rate_lable.setObjectName(u"show_imdb_rate_lable")
-        self.show_imdb_rate_lable.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_7.addWidget(self.show_imdb_rate_lable)
-
-
-        self.gridLayout_8.addWidget(self.widget, 0, 2, 1, 1)
-
+        self.gridLayout_8.setHorizontalSpacing(0)
+        self.gridLayout_8.setVerticalSpacing(10)
+        self.gridLayout_8.setContentsMargins(0, 20, -1, 15)
         self.widget_2 = QWidget(self.info_scrollarea)
         self.widget_2.setObjectName(u"widget_2")
         self.verticalLayout_8 = QVBoxLayout(self.widget_2)
+        self.verticalLayout_8.setSpacing(4)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.label_3 = QLabel(self.widget_2)
         self.label_3.setObjectName(u"label_3")
@@ -346,7 +298,7 @@ class Ui_show(object):
         self.verticalLayout_8.addWidget(self.show_user_rate_lable)
 
 
-        self.gridLayout_8.addWidget(self.widget_2, 0, 3, 1, 1)
+        self.gridLayout_8.addWidget(self.widget_2, 1, 5, 1, 1)
 
         self.plot_widget = QWidget(self.info_scrollarea)
         self.plot_widget.setObjectName(u"plot_widget")
@@ -376,22 +328,62 @@ class Ui_show(object):
         self.verticalLayout_9.addWidget(self.label_5)
 
 
-        self.gridLayout_8.addWidget(self.plot_widget, 0, 4, 1, 1)
+        self.gridLayout_8.addWidget(self.plot_widget, 0, 5, 1, 1)
 
-        self.move_to_combobox = QComboBox(self.info_scrollarea)
-        self.move_to_combobox.setObjectName(u"move_to_combobox")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.move_to_combobox.sizePolicy().hasHeightForWidth())
-        self.move_to_combobox.setSizePolicy(sizePolicy3)
-        self.move_to_combobox.setMinimumSize(QSize(100, 0))
-        self.move_to_combobox.setMaximumSize(QSize(100, 16777215))
-        self.move_to_combobox.setStyleSheet(u"")
-        self.move_to_combobox.setIconSize(QSize(16, 16))
-        self.move_to_combobox.setFrame(False)
+        self.widget_4 = QWidget(self.info_scrollarea)
+        self.widget_4.setObjectName(u"widget_4")
+        self.verticalLayout_14 = QVBoxLayout(self.widget_4)
+        self.verticalLayout_14.setObjectName(u"verticalLayout_14")
+        self.tmdb_icon_label = QLabel(self.widget_4)
+        self.tmdb_icon_label.setObjectName(u"tmdb_icon_label")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.tmdb_icon_label.sizePolicy().hasHeightForWidth())
+        self.tmdb_icon_label.setSizePolicy(sizePolicy2)
+        self.tmdb_icon_label.setMaximumSize(QSize(32, 32))
+        self.tmdb_icon_label.setPixmap(QPixmap(u":/icons/Icons/tmdb.png"))
+        self.tmdb_icon_label.setScaledContents(True)
+        self.tmdb_icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.gridLayout_8.addWidget(self.move_to_combobox, 0, 0, 1, 1)
+        self.verticalLayout_14.addWidget(self.tmdb_icon_label, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.tmdb_rate = QLabel(self.widget_4)
+        self.tmdb_rate.setObjectName(u"tmdb_rate")
+        self.tmdb_rate.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_14.addWidget(self.tmdb_rate)
+
+        self.tmdb_votes = QLabel(self.widget_4)
+        self.tmdb_votes.setObjectName(u"tmdb_votes")
+        self.tmdb_votes.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_14.addWidget(self.tmdb_votes)
+
+
+        self.gridLayout_8.addWidget(self.widget_4, 1, 1, 1, 1)
+
+        self.widget_5 = QWidget(self.info_scrollarea)
+        self.widget_5.setObjectName(u"widget_5")
+        self.verticalLayout_15 = QVBoxLayout(self.widget_5)
+        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
+        self.rottentomato_icon_label = QLabel(self.widget_5)
+        self.rottentomato_icon_label.setObjectName(u"rottentomato_icon_label")
+        self.rottentomato_icon_label.setMinimumSize(QSize(32, 32))
+        self.rottentomato_icon_label.setMaximumSize(QSize(16777215, 16777215))
+        self.rottentomato_icon_label.setPixmap(QPixmap(u":/icons/Icons/rotten tomatoes.png"))
+        self.rottentomato_icon_label.setScaledContents(True)
+
+        self.verticalLayout_15.addWidget(self.rottentomato_icon_label, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.rotten_tomatos_rate = QLabel(self.widget_5)
+        self.rotten_tomatos_rate.setObjectName(u"rotten_tomatos_rate")
+        self.rotten_tomatos_rate.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_15.addWidget(self.rotten_tomatos_rate)
+
+
+        self.gridLayout_8.addWidget(self.widget_5, 1, 0, 1, 1)
 
         self.trailer_widget = QWidget(self.info_scrollarea)
         self.trailer_widget.setObjectName(u"trailer_widget")
@@ -421,14 +413,165 @@ class Ui_show(object):
         self.verticalLayout_13.addWidget(self.label_6)
 
 
-        self.gridLayout_8.addWidget(self.trailer_widget, 1, 4, 1, 1)
+        self.gridLayout_8.addWidget(self.trailer_widget, 0, 4, 1, 1)
+
+        self.widget_3 = QWidget(self.info_scrollarea)
+        self.widget_3.setObjectName(u"widget_3")
+        self.verticalLayout_2 = QVBoxLayout(self.widget_3)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.label_4 = QLabel(self.widget_3)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setPixmap(QPixmap(u":/icons/Icons/chronometer.png"))
+        self.label_4.setScaledContents(False)
+        self.label_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_2.addWidget(self.label_4)
+
+        self.show_time_lable = QLabel(self.widget_3)
+        self.show_time_lable.setObjectName(u"show_time_lable")
+        self.show_time_lable.setMaximumSize(QSize(16777215, 25))
+        self.show_time_lable.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_2.addWidget(self.show_time_lable)
+
+
+        self.gridLayout_8.addWidget(self.widget_3, 0, 1, 1, 1)
+
+        self.move_to_combobox = QComboBox(self.info_scrollarea)
+        self.move_to_combobox.setObjectName(u"move_to_combobox")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.move_to_combobox.sizePolicy().hasHeightForWidth())
+        self.move_to_combobox.setSizePolicy(sizePolicy3)
+        self.move_to_combobox.setMinimumSize(QSize(110, 0))
+        self.move_to_combobox.setMaximumSize(QSize(100, 16777215))
+        self.move_to_combobox.setStyleSheet(u"")
+        self.move_to_combobox.setIconSize(QSize(16, 16))
+        self.move_to_combobox.setFrame(False)
+
+        self.gridLayout_8.addWidget(self.move_to_combobox, 0, 0, 1, 1)
+
+        self.widget = QWidget(self.info_scrollarea)
+        self.widget.setObjectName(u"widget")
+        self.verticalLayout_7 = QVBoxLayout(self.widget)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.label_2 = QLabel(self.widget)
+        self.label_2.setObjectName(u"label_2")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy4)
+        self.label_2.setMaximumSize(QSize(16777215, 16777215))
+        self.label_2.setSizeIncrement(QSize(0, 0))
+        self.label_2.setAutoFillBackground(False)
+        self.label_2.setPixmap(QPixmap(u":/icons/Icons/imdb.png"))
+        self.label_2.setScaledContents(False)
+        self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_7.addWidget(self.label_2)
+
+        self.show_imdb_rate_lable = QLabel(self.widget)
+        self.show_imdb_rate_lable.setObjectName(u"show_imdb_rate_lable")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(2)
+        sizePolicy5.setHeightForWidth(self.show_imdb_rate_lable.sizePolicy().hasHeightForWidth())
+        self.show_imdb_rate_lable.setSizePolicy(sizePolicy5)
+        self.show_imdb_rate_lable.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_7.addWidget(self.show_imdb_rate_lable)
+
+        self.imdb_votes = QLabel(self.widget)
+        self.imdb_votes.setObjectName(u"imdb_votes")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(1)
+        sizePolicy6.setHeightForWidth(self.imdb_votes.sizePolicy().hasHeightForWidth())
+        self.imdb_votes.setSizePolicy(sizePolicy6)
+        self.imdb_votes.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_7.addWidget(self.imdb_votes)
+
+
+        self.gridLayout_8.addWidget(self.widget, 1, 4, 1, 1)
+
+        self.widget_6 = QWidget(self.info_scrollarea)
+        self.widget_6.setObjectName(u"widget_6")
+        self.widget_6.setMinimumSize(QSize(0, 0))
+        self.verticalLayout_16 = QVBoxLayout(self.widget_6)
+        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
+        self.metascore_icon_label = QLabel(self.widget_6)
+        self.metascore_icon_label.setObjectName(u"metascore_icon_label")
+        self.metascore_icon_label.setMaximumSize(QSize(40, 40))
+        self.metascore_icon_label.setPixmap(QPixmap(u":/icons/Icons/metascore.png"))
+        self.metascore_icon_label.setScaledContents(True)
+
+        self.verticalLayout_16.addWidget(self.metascore_icon_label, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.metascore_rate = QLabel(self.widget_6)
+        self.metascore_rate.setObjectName(u"metascore_rate")
+        self.metascore_rate.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_16.addWidget(self.metascore_rate)
+
+
+        self.gridLayout_8.addWidget(self.widget_6, 2, 5, 1, 1)
 
 
         self.verticalLayout_3.addLayout(self.gridLayout_8)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.widget_7 = QWidget(self.info_scrollarea)
+        self.widget_7.setObjectName(u"widget_7")
+        self.widget_7.setMinimumSize(QSize(0, 0))
+        self.widget_7.setSizeIncrement(QSize(0, 0))
+        self.gridLayout_10 = QGridLayout(self.widget_7)
+        self.gridLayout_10.setObjectName(u"gridLayout_10")
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.director_label = QLabel(self.widget_7)
+        self.director_label.setObjectName(u"director_label")
+        self.director_label.setMinimumSize(QSize(180, 250))
+        self.director_label.setMaximumSize(QSize(180, 200))
+        self.director_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_3.addItem(self.verticalSpacer_2)
+        self.horizontalLayout_5.addWidget(self.director_label, 0, Qt.AlignmentFlag.AlignTop)
+
+        self.director_name = QLabel(self.widget_7)
+        self.director_name.setObjectName(u"director_name")
+
+        self.horizontalLayout_5.addWidget(self.director_name, 0, Qt.AlignmentFlag.AlignTop)
+
+
+        self.gridLayout_10.addLayout(self.horizontalLayout_5, 0, 0, 1, 1)
+
+
+        self.verticalLayout_3.addWidget(self.widget_7)
+
+        self.scrollArea_3 = QScrollArea(self.info_scrollarea)
+        self.scrollArea_3.setObjectName(u"scrollArea_3")
+        self.scrollArea_3.setMinimumSize(QSize(0, 285))
+        self.scrollArea_3.setStyleSheet(u"QWidget {\n"
+"    background-color: #262e39;\n"
+"    border: none;\n"
+"}")
+        self.scrollArea_3.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.scrollArea_3.setWidgetResizable(True)
+        self.cast_scroll_area = QWidget()
+        self.cast_scroll_area.setObjectName(u"cast_scroll_area")
+        self.cast_scroll_area.setGeometry(QRect(0, 0, 620, 285))
+        self.gridLayout_9 = QGridLayout(self.cast_scroll_area)
+        self.gridLayout_9.setObjectName(u"gridLayout_9")
+        self.gridLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.cast_layout = QHBoxLayout()
+        self.cast_layout.setObjectName(u"cast_layout")
+
+        self.gridLayout_9.addLayout(self.cast_layout, 0, 0, 1, 1)
+
+        self.scrollArea_3.setWidget(self.cast_scroll_area)
+
+        self.verticalLayout_3.addWidget(self.scrollArea_3)
 
 
         self.gridLayout_7.addLayout(self.verticalLayout_3, 0, 0, 1, 1)
@@ -499,11 +642,8 @@ class Ui_show(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.show_edit_image_label = QLabel(self.edit_widget)
         self.show_edit_image_label.setObjectName(u"show_edit_image_label")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.show_edit_image_label.sizePolicy().hasHeightForWidth())
-        self.show_edit_image_label.setSizePolicy(sizePolicy4)
+        sizePolicy2.setHeightForWidth(self.show_edit_image_label.sizePolicy().hasHeightForWidth())
+        self.show_edit_image_label.setSizePolicy(sizePolicy2)
         self.show_edit_image_label.setMinimumSize(QSize(180, 270))
         self.show_edit_image_label.setMaximumSize(QSize(180, 270))
         self.show_edit_image_label.setStyleSheet(u"QLabel {\n"
@@ -517,11 +657,11 @@ class Ui_show(object):
 
         self.show_edit_image_url = QLineEdit(self.edit_widget)
         self.show_edit_image_url.setObjectName(u"show_edit_image_url")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.show_edit_image_url.sizePolicy().hasHeightForWidth())
-        self.show_edit_image_url.setSizePolicy(sizePolicy5)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.show_edit_image_url.sizePolicy().hasHeightForWidth())
+        self.show_edit_image_url.setSizePolicy(sizePolicy7)
         self.show_edit_image_url.setMaximumSize(QSize(180, 16777215))
 
         self.verticalLayout_5.addWidget(self.show_edit_image_url)
@@ -754,17 +894,27 @@ class Ui_show(object):
         self.show_name_lable.setText(QCoreApplication.translate("show", u"Name", None))
         self.show_label.setText(QCoreApplication.translate("show", u"Date", None))
         self.show_gener_lable.setText(QCoreApplication.translate("show", u"Gener", None))
-        self.label_4.setText("")
-        self.show_time_lable.setText(QCoreApplication.translate("show", u"Runtime", None))
-        self.label_2.setText("")
-        self.show_imdb_rate_lable.setText(QCoreApplication.translate("show", u"IMDB rate", None))
         self.label_3.setText("")
         self.show_user_rate_lable.setText(QCoreApplication.translate("show", u"User rate", None))
         self.show_plot_lable.setText("")
         self.label_5.setText(QCoreApplication.translate("show", u"Press to see the Plot", None))
-        self.move_to_combobox.setPlaceholderText(QCoreApplication.translate("show", u"Move to :-", None))
+        self.tmdb_icon_label.setText("")
+        self.tmdb_rate.setText(QCoreApplication.translate("show", u"TMDB Rate", None))
+        self.tmdb_votes.setText(QCoreApplication.translate("show", u"votes", None))
+        self.rottentomato_icon_label.setText("")
+        self.rotten_tomatos_rate.setText(QCoreApplication.translate("show", u"roten rate", None))
         self.show_trailer_lable.setText("")
         self.label_6.setText(QCoreApplication.translate("show", u"Press to see the Trailer", None))
+        self.label_4.setText("")
+        self.show_time_lable.setText(QCoreApplication.translate("show", u"Runtime", None))
+        self.move_to_combobox.setPlaceholderText(QCoreApplication.translate("show", u"Move to", None))
+        self.label_2.setText("")
+        self.show_imdb_rate_lable.setText(QCoreApplication.translate("show", u"IMDBRate", None))
+        self.imdb_votes.setText(QCoreApplication.translate("show", u"votes", None))
+        self.metascore_icon_label.setText("")
+        self.metascore_rate.setText(QCoreApplication.translate("show", u"meta rate", None))
+        self.director_label.setText(QCoreApplication.translate("show", u"director Photo", None))
+        self.director_name.setText(QCoreApplication.translate("show", u"Director name", None))
         self.show_edit_button.setText(QCoreApplication.translate("show", u"Edit", None))
         self.show_delete_button.setText(QCoreApplication.translate("show", u"Delete", None))
         self.show_apply_button.setText(QCoreApplication.translate("show", u"Apply", None))

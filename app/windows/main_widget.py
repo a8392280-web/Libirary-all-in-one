@@ -322,9 +322,9 @@ class Widget(QWidget):
         elif sort_by == "Year (Oldest-Newest)":
             sort_key, reverse = "year", False
         elif sort_by == "IMDB Rating (High-Low)":
-            sort_key, reverse = "rating", True
+            sort_key, reverse = "imdb_rating", True
         elif sort_by == "IMDB Rating (Low-High)":
-            sort_key, reverse = "rating", False
+            sort_key, reverse = "imdb_rating", False
         elif sort_by == "User Rating (High-Low)":
             sort_key, reverse = "user_rating", True
         elif sort_by == "User Rating (Low-High)":
