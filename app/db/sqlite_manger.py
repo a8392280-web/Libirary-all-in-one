@@ -53,20 +53,42 @@ CREATE TABLE IF NOT EXISTS movies (
 -- ================================
 CREATE TABLE IF NOT EXISTS series (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    -- BASIC INFO
     title TEXT NOT NULL,
     year INTEGER,
-    total_seasons INTEGER,
-    episodes_json TEXT,         -- {"1":10,"2":12,"3":25}
-    imdb_rating REAL,
-    user_rating REAL,
+    runtime INTEGER,
+    plot TEXT,
     poster_path TEXT,
     genres TEXT,
-    plot TEXT,
+    seasons TEXT,             
+    total_seasons INTEGER,
+    total_episodes INTEGER,         -- {"1":10,"2":12,"3":25}
+
+    -- RATINGS
+    imdb_rating REAL,
+    user_rating REAL,
+    tmdb_rating REAL,
+    tmdb_votes INTEGER,
+    imdb_votes INTEGER,
+    rotten_tomatoes TEXT,
+    metascore INTEGER,
+
+    -- IDs
     imdb_id TEXT,
     tmdb_id INTEGER,
+
+    -- CREW & CAST
+    creator TEXT,
+    cast TEXT,               
+
+    -- MISC
+    trailer TEXT,
+    section TEXT DEFAULT 'want to watch',
     last_update TEXT,
-    created_at TEXT DEFAULT (datetime('now')),
-    section TEXT DEFAULT 'want to watch'
+    created_at TEXT DEFAULT (datetime('now'))
+
+
 );
 
 -- ================================

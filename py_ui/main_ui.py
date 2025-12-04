@@ -1257,10 +1257,10 @@ class Ui_main_widget(object):
 
         self.verticalLayout_14.addLayout(self.horizontalLayout_12)
 
-        self.mseries_list_2 = QListWidget(self.series_want_to_watch)
-        self.mseries_list_2.setObjectName(u"mseries_list_2")
+        self.series_list_2 = QListWidget(self.series_want_to_watch)
+        self.series_list_2.setObjectName(u"series_list_2")
 
-        self.verticalLayout_14.addWidget(self.mseries_list_2)
+        self.verticalLayout_14.addWidget(self.series_list_2)
 
 
         self.gridLayout_16.addLayout(self.verticalLayout_14, 0, 0, 1, 1)

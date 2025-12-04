@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QFrame, QVBoxLayout, QLabel, QHBoxLayout
 from app.utils.my_functions import link_to_image
 from app.models.movie import Movie
 
-class MovieGridItemWidget(QFrame):
+class GridItemWidget(QFrame):
     """Widget for grid view (Netflix style) using QFrame."""
 
     def __init__(self, movie: Movie, index: int = 1, parent=None):
@@ -107,12 +107,12 @@ class MovieGridItemWidget(QFrame):
     def apply_normal_style(self):
         """Apply normal (non-pressed) styling."""
         self.setStyleSheet("""
-            MovieGridItemWidget {
+            GridItemWidget {
                 background-color: transparent;
                 border: 1px solid transparent;
                 border-radius: 8px;
             }
-            MovieGridItemWidget:hover {
+            GridItemWidget:hover {
                 background-color: rgba(39, 48, 58, 0.3);
                 border: 1px solid rgba(79, 90, 101, 0.5);
             }
@@ -121,7 +121,7 @@ class MovieGridItemWidget(QFrame):
     def apply_pressed_style(self):
         """Apply pressed styling with white transparent overlay."""
         self.setStyleSheet("""
-            MovieGridItemWidget {
+            GridItemWidget {
                 background-color: rgba(255, 255, 255, 0.1);
                 border: 1px solid rgba(255, 255, 255, 0.2);
                 border-radius: 8px;

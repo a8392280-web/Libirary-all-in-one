@@ -256,7 +256,7 @@ class AddMovieWindow(QDialog):
     def _on_search_success(self, movie_info: dict):
         self.movie_info = movie_info
         self.ui.search_button.setEnabled(True)
-        self.ui.search_button.setText("Search")
+        self.ui.search_button.setText("Search TMDB+OMDB")
         self.display_movie_info(movie_info)
         self._search_worker = None
 

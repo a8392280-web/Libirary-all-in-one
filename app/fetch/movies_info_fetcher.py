@@ -296,6 +296,7 @@ def get_movie_info(title_name):
         return "no"
 
 
+
 def get_best_match(movie_name, movies_list, cutoff=0.5):
     if not movies_list:
         return None
@@ -425,8 +426,6 @@ class AkwamScraper:
             return None
 
         return best_match_link
-
-
 
 
 

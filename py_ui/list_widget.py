@@ -7,7 +7,7 @@ from app.models.movie import Movie
 
 
 
-class MovieListItemWidget(QWidget):
+class ListItemWidget(QWidget):
 
     def __init__(self,movie : Movie,index: int=1, parent=None):
         super().__init__(parent)
@@ -111,12 +111,12 @@ class MovieListItemWidget(QWidget):
         # Set hover effect and border
         self.setFixedHeight(100)
         # self.setStyleSheet("""
-        #     MovieListItemWidget {
+        #     ListItemWidget {
         #         border: 1px solid #333;
         #         border-radius: 4px;
         #         background-color: #1a1a1a;
         #     }
-        #     MovieListItemWidget:hover {
+        #     ListItemWidget:hover {
         #         background-color: #2a2a2a;
         #         border: 1px solid #555;
         #     }

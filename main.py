@@ -8,7 +8,7 @@ from pathlib import Path
 import socket
 from app.db.sqlite_manger import init_db
 LOCAL_DB_PATH = Path.cwd() / "data"
-
+from app.fetch.games_info_fetcher import get_game_info
 
 
 # def has_internet():
@@ -40,8 +40,8 @@ LOCAL_DB_PATH = Path.cwd() / "data"
 #             print("DB upload failed:", e)
             
 
-# # OFFLINE     
-#     else:
+# OFFLINE     
+    # else:
 print("No internet connection. Running in offline mode.")
 init_db()
 app = QtWidgets.QApplication(sys.argv)
@@ -49,3 +49,5 @@ main_widget = Widget()
 main_widget.show()
 app.exec()
 sys.exit()
+
+
