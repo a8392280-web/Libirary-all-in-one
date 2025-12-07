@@ -17,7 +17,7 @@ A complete Library Management System that allows users to manage movies, series,
 ## Installation / Setup
 
 - git clone https://github.com/a8392280-web//Libirary-all-in-one.git
-- cd library-project
+- cd Libirary-all-in-one
 - pip install -r requirements.txt
 - python main.py
 
