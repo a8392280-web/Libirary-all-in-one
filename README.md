@@ -5,7 +5,6 @@ A complete Library Management System that allows users to manage movies, series,
 
 ## Features
 - Add, update, and remove movies, series (soon: games, comics/manga, books)
-- 
 - Simple and interactive user interface
 
 ## Tech Stack
@@ -17,10 +16,10 @@ A complete Library Management System that allows users to manage movies, series,
 
 ## Installation / Setup
 
-1.git clone https://github.com/a8392280-web//Libirary-all-in-one.git
-2.cd library-project
-3.pip install -r requirements.txt
-4.python main.py
+- git clone https://github.com/a8392280-web//Libirary-all-in-one.git
+- cd library-project
+- pip install -r requirements.txt
+- python main.py
 
 ## License
 
