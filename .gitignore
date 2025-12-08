@@ -10,6 +10,8 @@
 assets/posters/*
 config.py
 data/*
+app/auth/
+app/sync
 credentials.json
 logs/*
 log
