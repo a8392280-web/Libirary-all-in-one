@@ -1,7 +1,7 @@
 import requests 
 import os
 from datetime import datetime, timedelta
-from config import OMDB_API_KEY, TMDB_API_KEY
+from config import OMDB_API_KEY, TMDB_API_KEY, MY_ANIME_LIST
 from concurrent.futures import ThreadPoolExecutor
 from bs4 import BeautifulSoup
 from urllib.parse import quote
@@ -11,56 +11,48 @@ import json
 import re
 
 
-def get_movie_info(title_name):
+
+TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
+TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w200"
+
+def search_movies_tmdb(query, max_results=10):
+    params = {"api_key": TMDB_API_KEY, "query": query, "include_adult": False, "page": 1}
+    response = requests.get(TMDB_SEARCH_URL, params=params)
+    if response.status_code != 200:
+        return []
+    data = response.json()
+    results = []
+    for movie in data.get("results", [])[:max_results]:
+        poster_path = movie.get("poster_path")
+        poster_url = f"{TMDB_IMAGE_BASE}{poster_path}" if poster_path else None
+        results.append({
+            "title": movie.get("title"),
+            "id": movie.get("id"),
+            "poster_url": poster_url,
+            "overview": movie.get("overview"),
+            "release_date": movie.get("release_date"),
+        })
+    return results
+
+
+
+def get_movie_info(movie_id):
     """
-    Complete movie info fetcher with all details from TMDB + IMDb
+    Complete movie info fetcher using TMDB ID + OMDb for IMDb data.
     """
-    print(f"🎬 Searching for: '{title_name}'")
-    
-    # Check API keys
     if not TMDB_API_KEY:
         print("❌ TMDB_API_KEY is missing!")
         return "no"
     if not OMDB_API_KEY:
         print("❌ OMDB_API_KEY is missing!")
         return "no"
-        
+
     TMDB_BASE = "https://api.themoviedb.org/3"
     OMDB_BASE = "https://www.omdbapi.com/"
-    
     session = requests.Session()
-    
+
     try:
-        # 1. SEARCH MOVIE
-        # print("🔍 Step 1: Searching TMDB...")
-        search_response = session.get(
-            f"{TMDB_BASE}/search/movie",
-            params={
-                "query": title_name, 
-                "api_key": TMDB_API_KEY
-            },
-            timeout=10
-        )
-        
-        if search_response.status_code != 200:
-            print(f"❌ TMDB Search failed with status: {search_response.status_code}")
-            return "no"
-            
-        search_data = search_response.json()
-        # print(f"📊 Found {len(search_data.get('results', []))} results")
-        
-        if not search_data.get("results"):
-            print("❌ No movies found with that title")
-            return "no"
-        
-        # Get first movie result
-        movie = search_data["results"][0]
-        movie_id = movie["id"]
-        movie_title = movie.get("title", "Unknown")
-        print(f"✅ Found movie: {movie_title} (ID: {movie_id})")
-        
-        # 2. GET MOVIE DETAILS
-        print("🔍 Step 2: Fetching movie details...")
+        # 1. GET MOVIE DETAILS
         details_response = session.get(
             f"{TMDB_BASE}/movie/{movie_id}",
             params={
@@ -69,47 +61,32 @@ def get_movie_info(title_name):
             },
             timeout=10
         )
-        
         if details_response.status_code != 200:
             print(f"❌ TMDB Details failed with status: {details_response.status_code}")
             return "no"
-            
         details = details_response.json()
-        # print(f"✅ Got details for: {details.get('title')}")
-        
-        # 3. GET TRAILER
+        movie_title = details.get("title", "Unknown")
+        print(f"✅ Found movie: {movie_title} (ID: {movie_id})")
+
+        # 2. GET TRAILER
         trailer = None
-        videos = details.get("videos", {}).get("results", [])
-        # print(f"🎥 Found {len(videos)} videos")
-        
-        for video in videos:
+        for video in details.get("videos", {}).get("results", []):
             if video.get("type") == "Trailer" and video.get("site") == "YouTube":
                 trailer = f"https://www.youtube.com/watch?v={video['key']}"
-                # print(f"✅ Found trailer: {trailer}")
                 break
-        
-        # 4. GET DIRECTOR + WRITERS
+
+        # 3. GET DIRECTOR + WRITERS + CAST
         director = None
         writers = []
-        producers = []
-        composers = []
-        
+        cast = []
+
         for crew in details.get("credits", {}).get("crew", []):
             if crew.get("job") == "Director":
-                director = f"{crew["name"]}, https://image.tmdb.org/t/p/w500{crew["profile_path"]}"
+                director = f"{crew['name']}, https://image.tmdb.org/t/p/w500{crew.get('profile_path')}"
             if crew.get("job") in ["Writer", "Screenplay", "Author"]:
-                if crew["name"] not in writers:  # Avoid duplicates
-                    writers.append(crew["name"])
-            if crew.get("job") == "Producer":
-                producers.append(crew["name"])
-            if crew.get("job") == "Original Music Composer":
-                composers.append(crew["name"])
-        
-        # print(f"🎬 Director: {director}")
-        # print(f"✍️ Writers: {writers[:3]}")  # Show first 3
-        
-        # 5. GET CAST (TOP 15)
-        cast = []
+                if crew['name'] not in writers:
+                    writers.append(crew['name'])
+
         for actor in details.get("credits", {}).get("cast", [])[:10]:
             cast.append({
                 "name": actor["name"],
@@ -117,174 +94,69 @@ def get_movie_info(title_name):
                 "profile": f"https://image.tmdb.org/t/p/w500{actor['profile_path']}" if actor.get("profile_path") else None,
                 "order": actor.get("order", 999)
             })
-        
-        # print(f"🌟 Cast: {len(cast)} actors")
-        
-        # 6. GET IMDb RATING & ADDITIONAL DATA
+
+        # 4. GET IMDb info via OMDb
         imdb_rating = None
-        rotten_tomatoes = None
-        metascore = None
         imdb_votes = None
+        metascore = None
+        rotten_tomatoes = None
         box_office = None
         awards = None
-        rated = None
-        dvd_release = None
-        website = None
-        
         imdb_id = details.get("imdb_id")
-        # print(f"📊 IMDb ID: {imdb_id}")
-        
+
         if imdb_id and OMDB_API_KEY:
             try:
-                # print("🔍 Step 3: Fetching IMDb rating from OMDb...")
                 omdb_response = session.get(
                     OMDB_BASE,
                     params={
-                        "apikey": OMDB_API_KEY, 
+                        "apikey": OMDB_API_KEY,
                         "i": imdb_id,
                         "plot": "full"
                     },
                     timeout=10
                 )
-                
                 if omdb_response.status_code == 200:
                     omdb_data = omdb_response.json()
                     if omdb_data.get("Response") == "True":
                         imdb_rating = omdb_data.get("imdbRating")
                         imdb_votes = omdb_data.get("imdbVotes")
-                        metascore = omdb_data.get("Metascore")
+                        metascore = omdb_data.get("Metascore",None)
                         box_office = omdb_data.get("BoxOffice")
                         awards = omdb_data.get("Awards")
-                        rated = omdb_data.get("Rated")
-                        dvd_release = omdb_data.get("DVD")
-                        website = omdb_data.get("Website")
-                        
-                        # Get Rotten Tomatoes rating
                         for rating in omdb_data.get("Ratings", []):
                             if rating["Source"] == "Rotten Tomatoes":
                                 rotten_tomatoes = rating["Value"]
                                 break
-                        
-                        # print(f"⭐ IMDb Rating: {imdb_rating}")
-                        # print(f"🍅 Rotten Tomatoes: {rotten_tomatoes}")
-                        # print(f"📈 Metascore: {metascore}")
-                    else:
-                        print("❌ OMDb response was False")
-                else:
-                    print(f"❌ OMDb request failed: {omdb_response.status_code}")
-                    
             except Exception as e:
                 print(f"❌ OMDb error: {e}")
-        
-        # 7. RECOMMENDATIONS (TOP 12)
-        recommendations = []
-        for rec in details.get("recommendations", {}).get("results", [])[:12]:
-            recommendations.append({
-                "title": rec["title"],
-                "poster": f"https://image.tmdb.org/t/p/w500{rec['poster_path']}" if rec.get("poster_path") else None,
-                "year": rec.get('release_date', '')[:4] if rec.get('release_date') else 'TBA',
-                "id": rec["id"],
-                "rating": rec.get("vote_average")
-            })
-        
-        # print(f"🔗 Recommendations: {len(recommendations)} movies")
-        
-        # 8. BUILD COMPLETE RESPONSE
-        # print("📦 Building complete response...")
-        
-        # Get year from release date
+
+        # 5. BUILD RESULT
         release_date = details.get("release_date", "")
         year = release_date[:4] if release_date else "Unknown"
-        
-        # Format budget and revenue
-        budget = details.get("budget")
-        revenue = details.get("revenue")
-        
-        def format_currency(amount):
-            if not amount or amount == 0:
-                return None
-            return f"${amount:,}"
-        
-        # Get all languages and countries
-        languages = [lang["english_name"] for lang in details.get("spoken_languages", [])]
-        countries = [country["name"] for country in details.get("production_countries", [])]
-        companies = [company["name"] for company in details.get("production_companies", [])]
         result = {
             "source": "Movie",
-            
-            # BASIC DATA
-            "name": details.get("title"),
-            # "OriginalName": details.get("original_title"),
-            # "Tagline": details.get("tagline"),
+            "name": movie_title,
             "year": year,
-            # "ReleaseDate": details.get("release_date"),
-            # "Status": details.get("status"),
             "runtime": details.get("runtime"),
-            
-            # RATINGS
             "tmdb_rating": round(details.get("vote_average", 0), 1),
             "tmdb_votes": details.get("vote_count"),
             "imdb_rating": imdb_rating,
             "imdb_votes": imdb_votes,
             "rotten_tomatoes": rotten_tomatoes,
             "metascore": metascore,
-            # "rated": rated,
-            
-            # IDs
             "tmdb_id": movie_id,
             "imdb_id": imdb_id,
-            
-            # POSTERS & IMAGES
             "image": f"https://image.tmdb.org/t/p/w500{details.get('poster_path')}" if details.get("poster_path") else None,
-            #"Backdrop": f"https://image.tmdb.org/t/p/original{details.get('backdrop_path')}" if details.get("backdrop_path") else None,
-            
-            # PLOT
             "plot": details.get("overview"),
-            
-            # TRAILER
             "trailer": trailer,
-            
-            # GENRES
             "genres": [g["name"] for g in details.get("genres", [])],
-            
-            # # LANGUAGE / COUNTRY / PRODUCTION
-            # "Languages": languages,
-            # "Countries": countries,
-            # "Companies": companies,
-            
-            # # HOMEPAGE
-            # "Homepage": details.get("homepage"),
-            # "Website": website,
-            
-            # # BUDGET & REVENUE
-            # "Budget": format_currency(budget),
-            # "Revenue": format_currency(revenue),
-            # "BoxOffice": box_office,
-            
-            # # CAST & CREW
             "director": director,
-            # "Writers": writers,
-            # "Producers": producers[:5],  # Top 5 producers
-            # "Composers": composers,
             "cast": cast,
-            
-            # # RECOMMENDATIONS
-            # "Recommendations": recommendations,
-            
-            # # AWARDS & RELEASES
-            # "Awards": awards,
-            # "DVD": dvd_release,
-            
-            # # ADDITIONAL INFO
-            # "Popularity": round(details.get("popularity", 0), 1),
-            # "Adult": details.get("adult", False),
-            # "Video": details.get("video", False)
         }
-        
+
         print("✅ Successfully built complete movie data!")
-        print("🎬 Movie:", result["tmdb_id"])
         return result
-        
+
     except requests.exceptions.Timeout:
         print("❌ Request timed out")
         return "no"
@@ -294,6 +166,182 @@ def get_movie_info(title_name):
     except Exception as e:
         print(f"❌ Unexpected error: {e}")
         return "no"
+
+
+
+
+
+
+MAL_SEARCH_URL = "https://api.myanimelist.net/v2/anime"
+
+def search_anime_movies(query, max_results=20):
+    headers = {"X-MAL-CLIENT-ID": MY_ANIME_LIST}
+    params = {
+        "q": query,
+        "limit": max_results,
+        "fields": "id,title,main_picture,media_type,start_date,synopsis"
+    }
+    
+    response = requests.get(MAL_SEARCH_URL, headers=headers, params=params)
+    if response.status_code != 200:
+        print("Error:", response.status_code, response.text)
+        return []
+    
+    data = response.json()
+    results = []
+    
+    movie_types = ["movie", "ova", "special", "ona"]
+    
+    for anime in data.get("data", []):
+        node = anime.get("node", {})
+        media_type = node.get("media_type")
+
+        if media_type not in movie_types:
+            continue
+        
+        main_picture = node.get("main_picture", {})
+        poster_url = main_picture.get("medium")
+        
+        results.append({
+            "title": node.get("title"),
+            "id": node.get("id"),
+            "poster_url": poster_url,
+            "synopsis": node.get("synopsis"),
+            "start_date": node.get("start_date"),
+            "type": media_type,
+        })
+    
+    return results
+
+
+
+import requests
+
+
+MAL_BASE_URL = "https://api.myanimelist.net/v2/anime"
+
+def get_movies_anime_info(anime_id):
+    """
+    Complete anime info fetcher using MyAnimeList anime ID.
+    """
+    headers = {"X-MAL-CLIENT-ID": MY_ANIME_LIST}
+    params = {
+        "fields": "id,title,main_picture,media_type,num_episodes,start_date,genres,studios,synopsis,alternative_titles,end_date,mean"
+    }
+
+    try:
+        response = requests.get(f"{MAL_BASE_URL}/{anime_id}", headers=headers, params=params, timeout=10)
+        if response.status_code != 200:
+            print(f"❌ MAL API returned status {response.status_code}")
+            return "no"
+
+        data = response.json()
+
+        # Basic info
+        anime_title = data.get("title")
+        start_date = data.get("start_date")
+        end_date = data.get("end_date")
+        year = start_date[:4] if start_date else "Unknown"
+        synopsis = data.get("synopsis")
+        episodes = data.get("num_episodes")
+        media_type = data.get("media_type")
+        rating = data.get("mean")  # average user score
+
+        # Images
+        main_picture = data.get("main_picture", {})
+        poster_url = main_picture.get("medium")
+        large_poster_url = main_picture.get("large")
+        background = data.get("background")
+        extra_pictures = [pic.get("large") for pic in data.get("pictures", [])]
+
+        # Genres and studios
+        genres = [g["name"] for g in data.get("genres", [])]
+        studios = [s["name"] for s in data.get("studios", [])]
+
+        # Alternative titles
+        alt_titles = data.get("alternative_titles", {})
+
+        # Build result dict
+        result = {
+            "source": "movie",
+            "name": anime_title,
+            "year": year,
+            # "start_date": start_date,
+            # "end_date": end_date,
+            # "episodes": episodes,
+            # "type": media_type,
+            "mal_rating": rating,
+            "mal_id": anime_id,
+            "image": poster_url,
+            # "poster_large": large_poster_url,
+            # "background": background,
+            # "extra_pictures": extra_pictures,
+            "plot": synopsis,
+            "genres": genres,
+            # "studios": studios,
+            # "alternative_titles": alt_titles
+        }
+        print(result)
+        print(f"✅ Successfully fetched anime: {anime_title} (ID: {anime_id})")
+        return result
+
+    except requests.exceptions.Timeout:
+        print("❌ Request timed out")
+        return "no"
+    except requests.exceptions.ConnectionError:
+        print("❌ Connection error - check internet")
+        return "no"
+    except Exception as e:
+        print(f"❌ Unexpected error: {e}")
+        return "no"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,143 +1,79 @@
 # app/db/series_db.py
-from app.models.series import Series
+from app.models.series import Series, SERIES_COLUMNS
 from app.db.sqlite_manger import get_conn
 import json
-import sqlite3
+
 
 # ==========================================================
 # 🔄 CONVERSION HELPERS
 # ==========================================================
 def series_to_tuple(series: Series):
-    """Convert a Series object into a tuple for SQL insertion."""
-    return (
-        series.title,
-        series.year,
-        series.runtime,
-
-        series.total_seasons,
-        series.total_episodes,
-        json.dumps(series.seasons) if series.seasons else None,
-
-        json.dumps(series.genres) if series.genres else None,
-        series.plot,
-        series.creator,
-        json.dumps(series.cast) if series.cast else None,
-
-        series.tmdb_id,
-        series.imdb_id,
-
-        series.user_rating,
-        series.tmdb_rating,
-        series.tmdb_votes,
-        series.imdb_rating,
-        series.imdb_votes,
-        series.metascore,
-        series.rotten_tomatoes,
-
-        series.trailer,
-        series.poster_path,
-        series.section,
-        series.last_update,
-    )
+    """Convert Series object into a tuple dynamically."""
+    values = []
+    for col in SERIES_COLUMNS:
+        value = getattr(series, col, None)
+        if isinstance(value, (list, dict)):
+            value = json.dumps(value)
+        values.append(value)
+    return tuple(values)
 
 
 def row_to_series(row):
-    """Convert a database row into a Series object."""
-    return Series(
-        id=row["id"],
-        title=row["title"],
-        year=row["year"],
-        runtime=row["runtime"],
+    """Convert a DB row into a Series object dynamically."""
+    data = {}
+    for col in SERIES_COLUMNS:
+        value = row[col]
 
-        total_seasons=row["total_seasons"],
-        total_episodes=row["total_episodes"],
-        seasons=json.loads(row["seasons"]) if row["seasons"] else [],
+        # JSON decode for list/dict fields
+        if col in ["genres", "seasons", "cast"] and value:
+            value = json.loads(value)
 
-        genres=json.loads(row["genres"]) if row["genres"] else [],
-        plot=row["plot"],
-        creator=row["creator"],
-        cast=json.loads(row["cast"]) if row["cast"] else [],
+        data[col] = value
 
-        tmdb_id=row["tmdb_id"],
-        imdb_id=row["imdb_id"],
-
-        user_rating=row["user_rating"],
-        tmdb_rating=row["tmdb_rating"],
-        tmdb_votes=row["tmdb_votes"],
-        imdb_rating=row["imdb_rating"],
-        imdb_votes=row["imdb_votes"],
-        metascore=row["metascore"],
-        rotten_tomatoes=row["rotten_tomatoes"],
-
-        trailer=row["trailer"],
-        poster_path=row["poster_path"],
-        section=row["section"],
-        last_update=row["last_update"],
-    )
+    return Series(**data, id=row["id"])
 
 
 # ==========================================================
 # 🟢 CRUD OPERATIONS
 # ==========================================================
 def insert_series(series: Series):
-    """Insert a new series into the database."""
+    cols = ", ".join(SERIES_COLUMNS)
+    placeholders = ", ".join(["?"] * len(SERIES_COLUMNS))
+    values = series_to_tuple(series)
+
     with get_conn() as conn:
         cursor = conn.cursor()
-        cursor.execute(
-            """
-            INSERT INTO series (
-                title, year, runtime,
-                total_seasons, total_episodes, seasons,
-                genres, plot, creator, cast,
-                tmdb_id, imdb_id,
-                user_rating, tmdb_rating, tmdb_votes, imdb_rating, imdb_votes,
-                metascore, rotten_tomatoes,
-                trailer, poster_path, section, last_update
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
-            """,
-            series_to_tuple(series)
-        )
+        cursor.execute(f"INSERT INTO series ({cols}) VALUES ({placeholders})", values)
         series.id = cursor.lastrowid
+
     return series
 
 
 def update_series(series: Series):
-    """Update an existing series."""
     if series.id is None:
         raise ValueError("Series must have an ID to update")
 
+    set_clause = ", ".join(f"{col}=?" for col in SERIES_COLUMNS)
+    values = series_to_tuple(series) + (series.id,)
+
     with get_conn() as conn:
         cursor = conn.cursor()
-        cursor.execute(
-            """
-            UPDATE series SET
-                title = ?, year = ?, runtime = ?,
-                total_seasons = ?, total_episodes = ?, seasons = ?,
-                genres = ?, plot = ?, creator = ?, cast = ?,
-                tmdb_id = ?, imdb_id = ?,
-                user_rating = ?, tmdb_rating = ?, tmdb_votes = ?, imdb_rating = ?, imdb_votes = ?,
-                metascore = ?, rotten_tomatoes = ?,
-                trailer = ?, poster_path = ?, section = ?, last_update = ?
-            WHERE id = ?
-            """,
-            series_to_tuple(series) + (series.id,)
-        )
+        cursor.execute(f"UPDATE series SET {set_clause} WHERE id=?", values)
+
     return series
 
 
 def delete_series(series_id: int) -> int:
-    """Delete a series by ID."""
     with get_conn() as conn:
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM series WHERE id = ?", (series_id,))
+        cursor.execute("DELETE FROM series WHERE id=?", (series_id,))
         return cursor.rowcount
 
 
 def get_series_by_id(series_id: int) -> Series | None:
-    """Fetch a single series by ID."""
     with get_conn() as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM series WHERE id = ?", (series_id,))
+        cursor.execute("SELECT * FROM series WHERE id=?", (series_id,))
         row = cursor.fetchone()
         return row_to_series(row) if row else None
 
@@ -146,7 +82,6 @@ def get_series_by_id(series_id: int) -> Series | None:
 # 🔍 QUERY UTILITIES
 # ==========================================================
 def list_series(section: str, order_by: str = "title", descending: bool = False):
-    """Fetch series filtered by section and sorted."""
     if not section:
         raise ValueError("Section must be provided")
 
@@ -155,7 +90,7 @@ def list_series(section: str, order_by: str = "title", descending: bool = False)
 
         query = f"""
         SELECT * FROM series
-        WHERE section = ?
+        WHERE section=?
         ORDER BY {order_by} {'DESC' if descending else 'ASC'}
         """
 
@@ -166,19 +101,19 @@ def list_series(section: str, order_by: str = "title", descending: bool = False)
 
 
 def move_series_section(series_id: int, new_section: str) -> bool:
-    """Move a series to another section."""
     with get_conn() as conn:
         cursor = conn.cursor()
+
         cursor.execute(
-            "UPDATE series SET section = ?, last_update = datetime('now') WHERE id = ?",
+            "UPDATE series SET section=?, last_update=datetime('now') WHERE id=?",
             (new_section, series_id)
         )
+
         return cursor.rowcount > 0
 
 
 def count_series(section: str) -> int:
-    """Count how many series exist in a specific section."""
     with get_conn() as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM series WHERE section = ?", (section,))
+        cursor.execute("SELECT COUNT(*) FROM series WHERE section=?", (section,))
         return cursor.fetchone()[0]

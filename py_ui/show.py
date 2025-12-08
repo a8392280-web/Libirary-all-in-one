@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'movies_show_uiPakuHk.ui'
+## Form generated from reading UI file 'show_uigbvhyH.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -36,7 +36,9 @@ class Ui_show(object):
         show.setStyleSheet(u"/* ===== SCROLL AREAS & CONTAINERS ===== */\n"
 "QScrollArea, QStackedWidget,\n"
 "QWidget#scroll_content, \n"
-"QWidget#info_scrollarea {\n"
+"QWidget#info_scrollarea,\n"
+"QWidget#scroll_content_2, \n"
+"QWidget#info_scrollarea_2 {\n"
 "    background-color: #182126;\n"
 "    border: none;\n"
 "}\n"
@@ -71,11 +73,11 @@ class Ui_show(object):
 "    outline: none;\n"
 "}\n"
 "\n"
-"/* ===== BUTTONS ===== */\n"
+"/* ===== BUTTONS ====="
+                        " */\n"
 "QPushButton {\n"
 "    background-color: #2e3a4b;\n"
-" "
-                        "   border: 1px solid rgba(255, 255, 255, 0.15);\n"
+"    border: 1px solid rgba(255, 255, 255, 0.15);\n"
 "    border-radius: 6px;\n"
 "    padding: 6px 14px;\n"
 "}\n"
@@ -112,12 +114,12 @@ class Ui_show(object):
 "QComboBox:focus {\n"
 "    border: 1px solid #5891ff;\n"
 "    background-color: rgba(255, 255, 255, 0.12);\n"
-"    outline: none;\n"
+""
+                        "    outline: none;\n"
 "}\n"
 "\n"
 "QComboBox::drop-down {\n"
-""
-                        "    border: none;\n"
+"    border: none;\n"
 "    width: 25px;\n"
 "    background-color: transparent;\n"
 "}\n"
@@ -161,12 +163,12 @@ class Ui_show(object):
 "    border-bottom: 3px solid #fbffff;\n"
 "}\n"
 "\n"
-"QTabBar::tab:hover {\n"
+"Q"
+                        "TabBar::tab:hover {\n"
 "    color: #cad1d9;\n"
 "}\n"
 "\n"
-"/*"
-                        " ===== LABELS ===== */\n"
+"/* ===== LABELS ===== */\n"
 "QLabel#show_image_lable {\n"
 "    border: none;\n"
 "    border-radius: 6px;\n"
@@ -249,6 +251,12 @@ class Ui_show(object):
         self.verticalSpacer_4 = QSpacerItem(20, 100, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout.addItem(self.verticalSpacer_4)
+
+        self.show_status = QLabel(self.info_scrollarea)
+        self.show_status.setObjectName(u"show_status")
+        self.show_status.setMaximumSize(QSize(16777215, 25))
+
+        self.verticalLayout.addWidget(self.show_status)
 
         self.show_label = QLabel(self.info_scrollarea)
         self.show_label.setObjectName(u"show_label")
@@ -760,11 +768,37 @@ class Ui_show(object):
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QWidget()
         self.tab_2.setObjectName(u"tab_2")
-        self.gridLayout_5 = QGridLayout(self.tab_2)
+        self.gridLayout_12 = QGridLayout(self.tab_2)
+        self.gridLayout_12.setSpacing(0)
+        self.gridLayout_12.setObjectName(u"gridLayout_12")
+        self.gridLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.scrollArea_4 = QScrollArea(self.tab_2)
+        self.scrollArea_4.setObjectName(u"scrollArea_4")
+        self.scrollArea_4.setWidgetResizable(True)
+        self.scroll_content_2 = QWidget()
+        self.scroll_content_2.setObjectName(u"scroll_content_2")
+        self.scroll_content_2.setGeometry(QRect(0, 0, 674, 668))
+        self.gridLayout_11 = QGridLayout(self.scroll_content_2)
+        self.gridLayout_11.setSpacing(0)
+        self.gridLayout_11.setObjectName(u"gridLayout_11")
+        self.gridLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.main_layout = QVBoxLayout()
+        self.main_layout.setObjectName(u"main_layout")
+
+        self.gridLayout_11.addLayout(self.main_layout, 0, 0, 1, 1)
+
+        self.scrollArea_4.setWidget(self.scroll_content_2)
+
+        self.gridLayout_12.addWidget(self.scrollArea_4, 0, 0, 1, 1)
+
+        self.tabWidget.addTab(self.tab_2, "")
+        self.tab_3 = QWidget()
+        self.tab_3.setObjectName(u"tab_3")
+        self.gridLayout_5 = QGridLayout(self.tab_3)
         self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.scrollArea = QScrollArea(self.tab_2)
+        self.scrollArea = QScrollArea(self.tab_3)
         self.scrollArea.setObjectName(u"scrollArea")
         self.scrollArea.setWidgetResizable(True)
         self.scroll_content = QWidget()
@@ -874,7 +908,7 @@ class Ui_show(object):
 
         self.gridLayout_5.addWidget(self.scrollArea, 0, 0, 1, 1)
 
-        self.tabWidget.addTab(self.tab_2, "")
+        self.tabWidget.addTab(self.tab_3, "")
 
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
@@ -892,6 +926,7 @@ class Ui_show(object):
         show.setWindowTitle(QCoreApplication.translate("show", u"Form", None))
         self.show_image_lable.setText("")
         self.show_name_lable.setText(QCoreApplication.translate("show", u"Name", None))
+        self.show_status.setText(QCoreApplication.translate("show", u"Status", None))
         self.show_label.setText(QCoreApplication.translate("show", u"Date", None))
         self.show_gener_lable.setText(QCoreApplication.translate("show", u"Gener", None))
         self.label_3.setText("")
@@ -932,6 +967,7 @@ class Ui_show(object):
         self.show_edit_apply_button.setText(QCoreApplication.translate("show", u"Apply", None))
         self.show_edit_cancel_button.setText(QCoreApplication.translate("show", u"Cancel", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("show", u"Info", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("show", u"Episode", None))
         self.watch_group.setTitle(QCoreApplication.translate("show", u"Watch                  ", None))
         self.watch_button_1.setText("")
         self.watch_button_2.setText("")
@@ -939,6 +975,6 @@ class Ui_show(object):
         self.download_group.setTitle(QCoreApplication.translate("show", u"Download                         ", None))
         self.download_button_1.setText("")
         self.download_button_2.setText("")
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("show", u"Find", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("show", u"Find", None))
     # retranslateUi
 

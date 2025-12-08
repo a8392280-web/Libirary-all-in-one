@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS movies (
     imdb_rating REAL,
     user_rating REAL,
     tmdb_rating REAL,
+    mal_rating REAL,
     tmdb_votes INTEGER,
     imdb_votes INTEGER,
     rotten_tomatoes TEXT,
@@ -35,6 +36,7 @@ CREATE TABLE IF NOT EXISTS movies (
     -- IDs
     imdb_id TEXT,
     tmdb_id INTEGER,
+    mal_id INTEGER,
 
     -- CREW & CAST
     director TEXT,
@@ -69,6 +71,7 @@ CREATE TABLE IF NOT EXISTS series (
     imdb_rating REAL,
     user_rating REAL,
     tmdb_rating REAL,
+    mal_rating REAL,
     tmdb_votes INTEGER,
     imdb_votes INTEGER,
     rotten_tomatoes TEXT,
@@ -77,6 +80,7 @@ CREATE TABLE IF NOT EXISTS series (
     -- IDs
     imdb_id TEXT,
     tmdb_id INTEGER,
+    mal_id INTEGER,
 
     -- CREW & CAST
     creator TEXT,

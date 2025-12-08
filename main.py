@@ -8,7 +8,6 @@ from pathlib import Path
 import socket
 from app.db.sqlite_manger import init_db
 LOCAL_DB_PATH = Path.cwd() / "data"
-from app.fetch.games_info_fetcher import get_game_info
 
 
 # def has_internet():

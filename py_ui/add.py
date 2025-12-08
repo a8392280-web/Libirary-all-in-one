@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'movies_addMwCYEy.ui'
+## Form generated from reading UI file 'add_uiKADyGV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -15,18 +15,19 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
+    QHBoxLayout, QLabel, QLineEdit, QListWidget,
+    QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 import py_ui.resources_rc
 
 class Ui_add_widget(object):
     def setupUi(self, add_widget):
         if not add_widget.objectName():
             add_widget.setObjectName(u"add_widget")
-        add_widget.resize(741, 530)
-        add_widget.setMinimumSize(QSize(741, 530))
-        add_widget.setMaximumSize(QSize(741, 530))
+        add_widget.resize(1000, 600)
+        add_widget.setMinimumSize(QSize(0, 0))
+        add_widget.setMaximumSize(QSize(1000, 600))
         add_widget.setStyleSheet(u"QLineEdit {\n"
 "    color: #e0e6f0; /* light gray text for dark bg */\n"
 "    font-size: 14px;\n"
@@ -137,19 +138,70 @@ class Ui_add_widget(object):
 "}")
         self.gridLayout = QGridLayout(add_widget)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalLayout_9 = QHBoxLayout()
-        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.verticalLayout_8 = QVBoxLayout()
-        self.verticalLayout_8.setSpacing(10)
-        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.verticalLayout_8.setContentsMargins(10, -1, 50, -1)
-        self.image_label = QLabel(add_widget)
-        self.image_label.setObjectName(u"image_label")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(-1, -1, 4, -1)
+        self.horizontalLayout_13 = QHBoxLayout()
+        self.horizontalLayout_13.setSpacing(10)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.apis_combobox = QComboBox(add_widget)
+        self.apis_combobox.setObjectName(u"apis_combobox")
+
+        self.horizontalLayout_13.addWidget(self.apis_combobox)
+
+        self.search_line = QLineEdit(add_widget)
+        self.search_line.setObjectName(u"search_line")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.image_label.sizePolicy().hasHeightForWidth())
-        self.image_label.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.search_line.sizePolicy().hasHeightForWidth())
+        self.search_line.setSizePolicy(sizePolicy)
+        self.search_line.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_13.addWidget(self.search_line)
+
+        self.search_button = QPushButton(add_widget)
+        self.search_button.setObjectName(u"search_button")
+
+        self.horizontalLayout_13.addWidget(self.search_button)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout_13)
+
+        self.result_list_widget = QListWidget(add_widget)
+        self.result_list_widget.setObjectName(u"result_list_widget")
+        self.result_list_widget.setStyleSheet(u"border: none")
+
+        self.verticalLayout_2.addWidget(self.result_list_widget)
+
+
+        self.horizontalLayout_3.addLayout(self.verticalLayout_2)
+
+        self.line = QFrame(add_widget)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.Shape.VLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.horizontalLayout_3.addWidget(self.line)
+
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setSpacing(30)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.verticalLayout_8 = QVBoxLayout()
+        self.verticalLayout_8.setSpacing(4)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.verticalLayout_8.setContentsMargins(4, 0, 0, -1)
+        self.image_label = QLabel(add_widget)
+        self.image_label.setObjectName(u"image_label")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.image_label.sizePolicy().hasHeightForWidth())
+        self.image_label.setSizePolicy(sizePolicy1)
         self.image_label.setMinimumSize(QSize(180, 175))
         self.image_label.setMaximumSize(QSize(180, 270))
         self.image_label.setStyleSheet(u"QLabel {\n"
@@ -163,19 +215,27 @@ class Ui_add_widget(object):
 
         self.verticalLayout_8.addWidget(self.image_label)
 
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout_8.addItem(self.verticalSpacer)
+
         self.image_url_input = QLineEdit(add_widget)
         self.image_url_input.setObjectName(u"image_url_input")
         self.image_url_input.setMaximumSize(QSize(200, 16777215))
 
         self.verticalLayout_8.addWidget(self.image_url_input)
 
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout_8.addItem(self.verticalSpacer_2)
+
         self.section_selector = QComboBox(add_widget)
         self.section_selector.setObjectName(u"section_selector")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.section_selector.sizePolicy().hasHeightForWidth())
-        self.section_selector.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.section_selector.sizePolicy().hasHeightForWidth())
+        self.section_selector.setSizePolicy(sizePolicy2)
         self.section_selector.setMinimumSize(QSize(0, 0))
         self.section_selector.setMaximumSize(QSize(16777215, 30))
         font = QFont()
@@ -187,73 +247,102 @@ class Ui_add_widget(object):
         self.section_selector.setFrame(False)
         self.section_selector.setLabelDrawingMode(QComboBox.LabelDrawingMode.UseStyle)
 
-        self.verticalLayout_8.addWidget(self.section_selector)
+        self.verticalLayout_8.addWidget(self.section_selector, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout_8.addItem(self.verticalSpacer_3)
 
 
-        self.horizontalLayout_9.addLayout(self.verticalLayout_8)
+        self.horizontalLayout_2.addLayout(self.verticalLayout_8)
 
-        self.verticalLayout_9 = QVBoxLayout()
-        self.verticalLayout_9.setSpacing(6)
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.verticalLayout_9.setContentsMargins(120, 6, -1, 6)
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setSpacing(12)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, -1, 0)
         self.name_input = QLineEdit(add_widget)
         self.name_input.setObjectName(u"name_input")
         self.name_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.name_input)
+        self.verticalLayout.addWidget(self.name_input)
 
         self.time_input = QLineEdit(add_widget)
         self.time_input.setObjectName(u"time_input")
         self.time_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.time_input)
+        self.verticalLayout.addWidget(self.time_input)
 
         self.date_input = QLineEdit(add_widget)
         self.date_input.setObjectName(u"date_input")
         self.date_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.date_input)
+        self.verticalLayout.addWidget(self.date_input)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.seasons_input = QLineEdit(add_widget)
+        self.seasons_input.setObjectName(u"seasons_input")
+        self.seasons_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.seasons_input)
+
+        self.episodes_input = QLineEdit(add_widget)
+        self.episodes_input.setObjectName(u"episodes_input")
+        self.episodes_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.episodes_input)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.plot_input = QLineEdit(add_widget)
         self.plot_input.setObjectName(u"plot_input")
         self.plot_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.plot_input)
+        self.verticalLayout.addWidget(self.plot_input)
 
         self.gener_input = QLineEdit(add_widget)
         self.gener_input.setObjectName(u"gener_input")
         self.gener_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.gener_input)
+        self.verticalLayout.addWidget(self.gener_input)
 
         self.imdb_rate_input = QLineEdit(add_widget)
         self.imdb_rate_input.setObjectName(u"imdb_rate_input")
         self.imdb_rate_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.imdb_rate_input)
+        self.verticalLayout.addWidget(self.imdb_rate_input)
+
+        self.mal_rate_input = QLineEdit(add_widget)
+        self.mal_rate_input.setObjectName(u"mal_rate_input")
+        self.mal_rate_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout.addWidget(self.mal_rate_input)
 
         self.user_rate_input = QLineEdit(add_widget)
         self.user_rate_input.setObjectName(u"user_rate_input")
         self.user_rate_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.user_rate_input)
+        self.verticalLayout.addWidget(self.user_rate_input)
 
         self.trailer_input = QLineEdit(add_widget)
         self.trailer_input.setObjectName(u"trailer_input")
         self.trailer_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_9.addWidget(self.trailer_input)
+        self.verticalLayout.addWidget(self.trailer_input)
 
 
-        self.horizontalLayout_9.addLayout(self.verticalLayout_9)
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
 
 
-        self.gridLayout.addLayout(self.horizontalLayout_9, 1, 0, 1, 2)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
 
         self.horizontalLayout_12 = QHBoxLayout()
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.horizontalLayout_12.setContentsMargins(-1, 0, -1, -1)
         self.apply_button = QPushButton(add_widget)
         self.apply_button.setObjectName(u"apply_button")
+        self.apply_button.setCheckable(True)
         self.apply_button.setFlat(False)
 
         self.horizontalLayout_12.addWidget(self.apply_button)
@@ -264,33 +353,15 @@ class Ui_add_widget(object):
         self.horizontalLayout_12.addWidget(self.cancel_button)
 
 
-        self.gridLayout.addLayout(self.horizontalLayout_12, 2, 1, 1, 1)
-
-        self.horizontalLayout_13 = QHBoxLayout()
-        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_13.addItem(self.horizontalSpacer_4)
-
-        self.search_button_2 = QPushButton(add_widget)
-        self.search_button_2.setObjectName(u"search_button_2")
-
-        self.horizontalLayout_13.addWidget(self.search_button_2)
-
-        self.search_button = QPushButton(add_widget)
-        self.search_button.setObjectName(u"search_button")
-        self.search_button.setFlat(False)
-
-        self.horizontalLayout_13.addWidget(self.search_button)
-
-        self.search_line = QLineEdit(add_widget)
-        self.search_line.setObjectName(u"search_line")
-        self.search_line.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout_13.addWidget(self.search_line)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_12)
 
 
-        self.gridLayout.addLayout(self.horizontalLayout_13, 0, 0, 1, 1)
+        self.horizontalLayout_3.addLayout(self.verticalLayout_3)
+
+        self.horizontalLayout_3.setStretch(0, 2)
+        self.horizontalLayout_3.setStretch(2, 4)
+
+        self.gridLayout.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
 
 #if QT_CONFIG(shortcut)
 #endif // QT_CONFIG(shortcut)
@@ -302,6 +373,9 @@ class Ui_add_widget(object):
 
     def retranslateUi(self, add_widget):
         add_widget.setWindowTitle(QCoreApplication.translate("add_widget", u"Form", None))
+        self.apis_combobox.setPlaceholderText(QCoreApplication.translate("add_widget", u"Search on", None))
+        self.search_line.setPlaceholderText(QCoreApplication.translate("add_widget", u"Search Online", None))
+        self.search_button.setText(QCoreApplication.translate("add_widget", u"Search", None))
         self.image_label.setText("")
         self.image_url_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Image URL", None))
         self.section_selector.setCurrentText("")
@@ -310,16 +384,17 @@ class Ui_add_widget(object):
         self.name_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Name", None))
         self.time_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Runtime (min)", None))
         self.date_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Release", None))
+        self.seasons_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Seasons", None))
+        self.episodes_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Episodes", None))
         self.plot_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Plot", None))
         self.gener_input.setText("")
         self.gener_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Genre  (Action-Horror)", None))
         self.imdb_rate_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"IMDB rate", None))
+        self.mal_rate_input.setText("")
+        self.mal_rate_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"MAL rate", None))
         self.user_rate_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"User rate", None))
         self.trailer_input.setPlaceholderText(QCoreApplication.translate("add_widget", u"Trailer", None))
         self.apply_button.setText(QCoreApplication.translate("add_widget", u"Apply", None))
         self.cancel_button.setText(QCoreApplication.translate("add_widget", u"Cancel", None))
-        self.search_button_2.setText(QCoreApplication.translate("add_widget", u"MyAnimeList", None))
-        self.search_button.setText(QCoreApplication.translate("add_widget", u"Search TMDB+OMDB", None))
-        self.search_line.setPlaceholderText(QCoreApplication.translate("add_widget", u"Search Online", None))
     # retranslateUi
 
