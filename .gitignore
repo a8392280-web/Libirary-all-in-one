@@ -13,3 +13,4 @@ data/*
 credentials.json
 logs/*
 log
+token.json
